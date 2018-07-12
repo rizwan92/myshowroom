@@ -1,0 +1,145 @@
+एयर फ़िल्टर की सफाई 
+टैपेड  क्लीयरेन्स जांच एवं गैप एडजस्ट करना 
+स्पार्क प्लग की सफाई एवं गैप एडजस्ट करना 
+कार्बोरेटर टायनिंग 
+क्लच निरीक्षण / एडजस्ट करना 
+ब्रेक घिसने का निरिक्षण /एडजस्ट करना 
+डाइव चैन की सफाई एवं एडजस्ट करना 
+बैटरी एलेक्टोलाइट स्तर की जांच /उनकी पूर्ति 
+फ्यूल स्टेवर की सफाई एवं सर्विस छोड़कर 
+इलेक्ट्रिकल जांच 
+केबल की जांच 
+नट बोल्ट एवं बूड़नारो की जांच 
+तेल बदलाव  
+ग्राहक का नाम 
+ग्राहक का मोबाइल नम्बर 
+ग्राहक का ईमेल 
+मोटरसाईकल का विवरण 
+मोडल नंबर 
+रंग 
+चाबी नंबर 
+रजिस्ट्रेशन नंबर
+इंजन नंबर
+चेसीस /फ्रेम  नंबर 
+सोल्ड डीलर
+लिखे  
+जॉब शीट 
+इस  माह 
+इस हफ़्ता 
+इस  दिन 
+अपडेट किया गया 
+बस स्टैंड -घटुला तहसील  नगरी जिला-धमतरी 
+फ्री सर्विस जॉब कार्ड 
+जॉब कार्ड नंबर 
+दिनांक 
+ग्राहक का पता 
+हा ना 
+रजिस्ट्रेशन नंबर 
+कितने किलोमीटर चली है 
+खरीदी  दिनांक 
+सोल्ड डीलर 
+मानक कार्य कृपया टिक करे 
+इंजन तेल के स्तर की जांच
+सुपरवाइज़र की टिप्पणियां 
+तेल बदलाव :- हां /नहीं 
+तेल की किस्म 4 टी  प्लस /अन्य सन्तुस्ट ब्रांड 
+
+
+
+
+
+ मोटर साइकिल पावती रिपोर्ट 
+सर्विस सुपरवाइज़र द्वारा भेजा जायेगा 
+मद 
+ईंधन स्तर 
+बैटरी हां / ना 
+टूल कीट हां / ना 
+रियर व्यू मिरर 
+डेंट निशान 
+चोक कैंप : हां /ना 
+एसेसरीज़ 
+अन्य ( यदि कोई हो )
+टीम सुपरवाइज़र का नाम एवं हस्ताक्षर 
+ग्राहक के हस्ताक्षर
+मरम्मत ,जांच व टायल के दौरान मोटरसाईकल की क्षति के लिए जिम्मेदार नहीं होगा 
+ हालत 
+मरम्मत इतिहास पिछले दो सर्विस 
+जाँच शेड्यूल  
+आने का समय
+आबंटित टीम 
+मैकेनिक 
+डिलेवरी तिथि 
+समय 
+अनुमान लागत (एस्टिमेटेड कॉस्ट )
+
+
+डिलीवरी फीडबैक 
+डिलीवरी दिनांक  
+समय  
+मैंने विधिवत सर्विस /मरम्मत की हुई मोटरसाइक्ल प्राप्त की है और मै इससे पूर्णता संतुस्ट हु और बदले में पुर्ज़े यदि कोई हो मुझे लौटा दिए गए है 
+
+
+
+ग्राहक के पास रहेगा और मोटरसाइक्ल डिलीवरी के समय सोपा जायेगा 
+जॉब कार्ड नंबर  रजिस्ट्रेशन नंबर 
+अनुमानित लागत (एस्टिमेटेड कॉस्ट )
+सहमत डिलीवरी तिथि 
+समय 
+कृपया स्पस्टीकरण के लिए  से संपर्क कीजिये 
+स्टार ऑटो घटुला जिला -धमतरी छत्तीसगढ़  
+
+
+
+ <label   className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-1">
+                    <input type="checkbox" id="checkbox-1" className="mdl-checkbox__input" />
+                    <span className="mdl-checkbox__label">इंजन तेल के स्तर की जांच </span>
+                  </label>
+
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-2">
+                    <input type="checkbox" id="checkbox-2" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">एयर फ़िल्टर की सफाई </span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-3">
+                    <input type="checkbox" id="checkbox-3" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">टैपेड  क्लीयरेन्स जांच एवं गैप एडजस्ट करना</span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-4">
+                    <input type="checkbox" id="checkbox-4" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">स्पार्क प्लग की सफाई एवं गैप एडजस्ट करना</span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-5">
+                    <input type="checkbox" id="checkbox-5" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">कार्बोरेटर टायनिंग</span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-6">
+                    <input type="checkbox" id="checkbox-6" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">क्लच निरीक्षण / एडजस्ट करना</span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-7">
+                    <input type="checkbox" id="checkbox-7" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">ब्रेक घिसने का निरिक्षण /एडजस्ट करना</span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-8">
+                    <input type="checkbox" id="checkbox-8" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">डाइव चैन की सफाई एवं एडजस्ट करना </span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-9">
+                    <input type="checkbox" id="checkbox-9" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">बैटरी एलेक्टोलाइट स्तर की जांच /उनकी पूर्ति</span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-10">
+                    <input type="checkbox" id="checkbox-10" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">फ्यूल स्टेवर की सफाई एवं सर्विस छोड़कर</span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-11">
+                    <input type="checkbox" id="checkbox-11" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">इलेक्ट्रिकल जांच </span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-2">
+                    <input type="checkbox" id="checkbox-2" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">केबल की जांच </span>
+                  </label>
+                  <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-12">
+                    <input type="checkbox" id="checkbox-12" className="mdl-checkbox__input" /> 
+                    <span className="mdl-checkbox__label">नट बोल्ट एवं बूड़नारो की जांच </span>
+                  </label>

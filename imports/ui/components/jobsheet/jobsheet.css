@@ -1,0 +1,29 @@
+.bigText {
+  font-size: 22px;
+  margin: 7px;
+}
+.mediumText {
+  font-size: 17px;
+  margin: 5px;
+}
+.smallText {
+  font-size: 17px;
+  margin: 13px;
+}
+.grahakDetailsContainer {
+  margin-top: 20px;
+  border-left-style: groove;
+  border-right-style: groove;
+}
+.grahakDetail {
+  display: flex;
+  border-top-style: groove;
+  border-bottom-style: groove;
+}
+.grahakDetailSub {
+  flex: 1;
+  padding-left: 10px;
+  text-align: left;
+  padding-top: 5px;
+  justify-content: center;
+}
