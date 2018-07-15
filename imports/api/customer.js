@@ -2,9 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import moment from 'moment'
-import { CounterApi } from './counter';
 export  const CustomerApi = new Mongo.Collection('customers');
-
 Meteor.methods({
   'customer.insert'(customer) {    
     return  CustomerApi.insert({
@@ -20,7 +18,6 @@ Meteor.methods({
       vehicleEngineNumber:customer.vehicleEngineNumber,
       vehicleChassisNumber:customer.vehicleChassisNumber,
       vehicleSoldDealer:customer.vehicleSoldDealer,
-      jobSheet:[],
       status:1,
       createdAt: new Date(),
     });
@@ -52,17 +49,6 @@ Meteor.methods({
     // const customers = CustomerApi.find({ $text: { $search: phrase }},{ fields: { _id: 1 } } ).fetch()    
     return customers 
   },
-  'customer.createJobSheet'(showroomId,customerId,jobSheetId,jobSheet) {  
-    let count = CounterApi.findOne({showroomId})  
-    if (parseInt(jobSheetId) === parseInt(count.counter) ) {
-      CounterApi.update({showroomId}, {$inc: {counter: 1}});
-      return  CustomerApi.update(customerId,{
-        $push: {jobSheet: jobSheet},
-      })  
-    }else {
-      throw new Meteor.Error(500,'this jobsheet ID already exist');  
-    }
-  },
   'customer.remove'(customerId) {
     check(customerId, String);
     CustomerApi.remove(customerId);
@@ -73,18 +59,14 @@ Meteor.methods({
   }
 });
 if (Meteor.isServer) {
-  CustomerApi._ensureIndex({
-    'customerName': 'text'
-  });
+  // CustomerApi._ensureIndex({
+  //   'customerName': 'text'
+  // });
   Meteor.publish('allcustomer', function userPublication() {
     return CustomerApi.find({},{sort: {createdAt: -1},limit:20})
   });
   Meteor.publish('thisMonthCustomer', function userPublication() {
     var startOfMonth = moment().startOf ('month').toDate ();
-    return CustomerApi.find({ createdAt: {$gte: startOfMonth}},{fields:{jobSheet:0},sort: {createdAt: -1}})      
-  });
-  Meteor.publish('thisMonthJobSheet', function userPublication() {
-    var startOfMonth = moment().startOf ('month').toDate ();
-    return CustomerApi.find({jobSheet:{$elemMatch:{ createdAt: {$gte: startOfMonth}}}},{fields:{jobSheet:1},sort: {createdAt: -1}})      
+    return CustomerApi.find({ createdAt: {$gte: startOfMonth}},{sort: {createdAt: -1}})      
   });
 }

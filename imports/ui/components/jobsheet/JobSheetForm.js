@@ -27,7 +27,7 @@ export class JobSheetForm extends Component {
   
   print(){
     var pri = document.getElementById('myiframe').contentWindow;
-    pri.document.open();
+    pri.document.open();    
     pri.document.write(ReactDOMServer.renderToString(<PrintJobSheet detail={this.props.match.params} mycheck={this.state}/>));
     pri.document.close();
     pri.focus();
@@ -37,9 +37,9 @@ export class JobSheetForm extends Component {
   createJobSheet = () => {
     let { jobSheetId,customerId,type}  =  this.props.match.params
     let jobSheet = {
-      ...this.state,createdAt:new Date(),status:1,type,jobSheetId
+      ...this.state,type,jobSheetId,customerId
     }
-    Meteor.call('customer.createJobSheet','1',customerId,jobSheetId,jobSheet,(err,res)=>{
+    Meteor.call('jobsheet.insert','1',jobSheet,(err,res)=>{
       if (err) {
         Bert.alert(err, 'danger', 'growl-top-right');
       }

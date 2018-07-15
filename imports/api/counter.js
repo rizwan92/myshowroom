@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-import moment from 'moment'
 export  const CounterApi = new Mongo.Collection('counter');
 
 Meteor.methods({

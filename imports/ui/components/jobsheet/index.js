@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withTracker } from 'meteor/react-meteor-data';
-import  CustomerTable  from '../customer/CustomerTable';
+import {  JobSheetApi } from '../../../api/jobsheet';
+import  JobSheetTable  from './JobSheetTable';
 import { Meteor } from 'meteor/meteor'
-Meteor.subscribe('thisMonthJobSheet')
+import moment from 'moment'
+
 
 export class JobSheet extends Component {
   state={
     tab:1,
   }
   handleTabChange =(tab)=> this.setState({tab})
+
+  componentDidMount = () => {
+    // Meteor.call('jobsheet.get',(err,res)=>{
+    //   console.log(err);
+    //   console.log(res);
+    // })
+  }
+  
  
   render() {
     if (!this.props.loading) {
@@ -20,6 +30,8 @@ export class JobSheet extends Component {
       )
     }
     const tab = this.state.tab
+    // console.log(this.props);
+    
     return (
       <div>
         <h4> Jobsheet Details</h4>
@@ -43,15 +55,23 @@ export class JobSheet extends Component {
             <div>4</div>
           </div>
         </div>
-        <CustomerTable customers={[]} />
+        <JobSheetTable customers={[]} />
       </div>
     )
   }
 }
 
 export default withTracker(() => {
+  const handle = Meteor.subscribe('thisMonthJobSheet','1')
+  var startOfWeek = moment ().startOf ('week').toDate ();
+  var endOfWeek = moment ().endOf ('week').toDate ();
+  var d = new Date();
+  d.setHours(0,0,0,0);    
   return {
-    loading:true
+    jobsheet:JobSheetApi.find({}).fetch(),
+    jobsheetOfWeek:JobSheetApi.find({ createdAt: {$gte: startOfWeek,$lte:endOfWeek}}).fetch(),
+    jobsheetOfDay:JobSheetApi.find({createdAt: {$gte: d}}).fetch(),
+    loading:handle.ready()
   };
 })(withRouter (JobSheet));
 
