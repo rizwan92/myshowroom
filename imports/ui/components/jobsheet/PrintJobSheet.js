@@ -216,12 +216,13 @@ const smallText = {
   
 const grahakDetailsContainer = {
   borderLeftStyle: 'groove',
-  borderRightStyle: 'groove'
+  borderRightStyle: 'groove',
 }
 const grahakDetail = {
   display: 'flex',
   borderTopStyle: 'groove',
-  borderBottomStyle: 'groove'
+  borderBottomStyle: 'groove',
+  padding:5
 }
   
 const grahakDetailSub = {

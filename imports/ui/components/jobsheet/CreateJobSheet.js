@@ -3,7 +3,7 @@ import Autocomplete from 'react-autocomplete'
 import { Tracker } from 'meteor/tracker'
 import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom'
-import  CustomerTable  from '../customer/CustomerTable';
+import JobSheetTable1 from './JobSheetTable.1';
 /*global  Bert:true componentHandler:true*/
 export class CreateJobSheet extends Component {
     state={
@@ -29,9 +29,9 @@ export class CreateJobSheet extends Component {
             Meteor.call('customer.bynames','1',value,(err,customers)=>{              
               if (err) {
                 Bert.alert('something went wrong', 'danger', 'growl-top-right');
-              }              
+              }      
               customers.sort (this.dynamicSort ('customerName'));
-              this.setState({items:customers,isLoading:false})
+              this.setState({items:customers,isLoading:false,search:value})
             })
           }
         })
@@ -53,6 +53,17 @@ export class CreateJobSheet extends Component {
     }
     
     render() {
+      let jobsheets = []
+      if (this.state.customer !== null) {
+        let thisCustomer = JSON.parse(JSON.stringify(this.state.customer))
+        delete thisCustomer.jobsheets; 
+        let thisCustomerJobsheets = this.state.customer.jobsheets
+        jobsheets = thisCustomerJobsheets.map((job)=>{
+          job['customer'] = thisCustomer
+          return job
+        })             
+      }
+      
       return (
         <div>
           <center>
@@ -90,7 +101,13 @@ export class CreateJobSheet extends Component {
 
             {
               this.state.customer === null ? null :
-                <CustomerTable customers={[{...this.state.customer}]}/>
+                <div>
+                  {
+
+                    jobsheets.length === 0 ? <h2>No Record Found</h2> :
+                      <JobSheetTable1 jobsheets={jobsheets}/>
+                  }
+                </div>
             }
             <br />
             <label style={{marginRight:10}} className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1">
@@ -138,8 +155,9 @@ export class CreateJobSheet extends Component {
           return
         }
         else{
-          const jobSheetId = res.counter;
-          const url  = `/jobsheetform/${jobSheetId}/${customerId}/${customerName}/${customerNumber}/${customerEmail}/${customerAddress}/${hpd}/${vehicleModel}/${vehicleColor}/${vehicleKeyNumber}/${vehicleEngineNumber}/${vehicleChassisNumber}/${vehicleSoldDealer}/${type}`
+          const jobSheetId = res.year + '-' + res.counter;
+          let mycheck = null
+          const url  = `/jobsheetform/${jobSheetId}/${customerId}/${customerName}/${customerNumber}/${customerEmail}/${customerAddress}/${hpd}/${vehicleModel}/${vehicleColor}/${vehicleKeyNumber}/${vehicleEngineNumber}/${vehicleChassisNumber}/${vehicleSoldDealer}/${type}/${mycheck}`
           this.props.history.push(url);
         }
       })

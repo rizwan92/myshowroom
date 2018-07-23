@@ -51,6 +51,17 @@ export class JobSheetForm extends Component {
     })
         
   }
+  componentDidMount = () => {
+    if (this.props.match.params.mycheck !== 'null') {
+      let {oilLabel, airFilter,taped,spark,corborator,clutch
+        ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt} = JSON.parse(this.props.match.params.mycheck)
+      this.setState({
+        oilLabel,airFilter,taped,spark,corborator,clutch,
+        breake,diveChain,battery,fuel,electrical,cabel,nutBolt,
+      })
+    } 
+  }
+  
   render() {      
     return (
       <div>

@@ -58,6 +58,10 @@ export class CustomerRegistrationForm extends Component {
     const id = this.props.match.params.id
     return (
       <div >
+        { id  === undefined ?   null 
+          :
+          <i className="material-icons" style={{fontSize:50}} onClick={()=> this.props.history.goBack()}>keyboard_backspace</i> 
+        }
         <center>
           <h4>{ id  === undefined ?   'Registere Customer' : 'Edit Customer'}</h4>
           <form id="customerRegistrationForm" className="myform" onSubmit={id === undefined ? (e)=>this.onSubmit(e) : (e)=>this.onUpdate(e)}>
@@ -100,6 +104,7 @@ export class CustomerRegistrationForm extends Component {
               <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input className="mdl-textfield__input myinput" type="text" id="vehicleModel" 
                   onChange={(e)=> this.onChange(e)} value={this.state.vehicleModel}/>
+              
                 <label className="mdl-textfield__label" htmlFor="vehicleModel">Model Number</label>
               </div>
               <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -160,16 +165,16 @@ export class CustomerRegistrationForm extends Component {
     let vehicleChassisNumber = this.state.vehicleChassisNumber.trim()
     let vehicleSoldDealer = this.state.vehicleSoldDealer.trim()
 
-    if (customerName===''){ this.showSnackBar('ग्राहक का नाम लिखे '); return false}
-    if (customerNumber===''){ this.showSnackBar('ग्राहक का मोबाइल नम्बर लिखे '); return false}
-    if (customerEmail===''){ this.showSnackBar('ग्राहक का ईमेल लिखे'); return false}
-    if (customerAddress===''){ this.showSnackBar('ग्राहक का पता लिखे'); return false}
-    if (vehicleModel===''){ this.showSnackBar('मोडल नंबर लिखे'); return false}
-    if (vehicleColor===''){ this.showSnackBar('रंग लिखे'); return false}
-    if (vehicleKeyNumber===''){ this.showSnackBar('चाबी नंबर लिखे'); return false}
-    if (vehicleEngineNumber===''){ this.showSnackBar('इंजन नंबर लिखे'); return false}
-    if (vehicleChassisNumber===''){ this.showSnackBar('चेसीस  नंबर लिखे'); return false}
-    if (vehicleSoldDealer===''){ this.showSnackBar('सोल्ड डीलर लिखे'); return false}
+    if (customerName===''){ this.showSnackBar('Enter Customer Name'); return false}
+    if (customerNumber===''){ this.showSnackBar('Enter Customer Mobile Number'); return false}
+    if (customerEmail===''){ this.showSnackBar('Enter Customer Email'); return false}
+    if (customerAddress===''){ this.showSnackBar('Enter Customer Address'); return false}
+    if (vehicleModel===''){ this.showSnackBar('Enter Model Number'); return false}
+    if (vehicleColor===''){ this.showSnackBar('Enter Color'); return false}
+    if (vehicleKeyNumber===''){ this.showSnackBar('Enter Key number'); return false}
+    if (vehicleEngineNumber===''){ this.showSnackBar('Enter Engine Number'); return false}
+    if (vehicleChassisNumber===''){ this.showSnackBar('Enter Chessis Number'); return false}
+    if (vehicleSoldDealer===''){ this.showSnackBar('Enter Dealer Name'); return false}
 
 
     let customer ={
@@ -232,6 +237,7 @@ export class CustomerRegistrationForm extends Component {
     Meteor.call('customer.update',customerId,customer,(err,res)=>{
       if (err) {
         Bert.alert(err, 'danger', 'growl-top-right');
+        return
       }
       Bert.alert('ग्राहक अपडेट किया गया ', 'success', 'growl-top-right');
       // this.props.history.push('/customer')

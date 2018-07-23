@@ -7,42 +7,53 @@ export class JobSheetTable extends Component {
       <table style={{width:'100%'}} className="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
         <thead>
           <tr>
+            <th>Job Sheet Id</th>
             <th>Customer Name</th>
             <th>Mob Number</th>
-            <th>email</th>
-            <th>vehicleModel</th>
-            <th>vehicleColor</th>
-            <th>vehicleSoldDealer</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Email</th>
+            <th>Vehicle Model</th>
+            <th>Vehicle Color</th>
+            <th>View</th>
           </tr>
         </thead>
         <tbody>
           {
-            this.props.customers.map((customer,i)=>{
+            this.props.jobsheets.map((jobsheet,i)=>{
               return(
                 <tr key={i}>
-                  <td >{customer.customerName}</td>
-                  <td>{customer.customerNumber}</td>
-                  <td>{customer.customerEmail}</td>
-                  <td>{customer.vehicleModel}</td>
-                  <td>{customer.vehicleColor}</td>
-                  <td>{customer.vehicleSoldDealer}</td>
-                  <td><i className="material-icons" style={{color:'blue'}} onClick={()=>this.props.history.push(`/customeredit/${customer._id}`)}>create</i></td>
-                  <td><i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteCustomer(customer._id)}>clear</i></td>
+                  <td>{jobsheet.jobSheetId}</td>
+                  <td >{jobsheet.customer.customerName}</td>
+                  <td>{jobsheet.customer.customerNumber}</td>
+                  <td>{jobsheet.customer.customerEmail}</td>
+                  <td>{jobsheet.customer.vehicleModel}</td>
+                  <td>{jobsheet.customer.vehicleColor}</td>
+                  <td><i className="material-icons" style={{color:'blue'}}  onClick={()=>this.viewJobSheet(jobsheet)}>remove_red_eye</i></td>
+                  <td><i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteJobsheet(jobsheet._id)}>delete</i></td>
                 </tr>
-              )
+              ) 
             })
           }
         </tbody>
       </table>
     )
   }
-  deleteCustomer =(id)=>{
+  deleteJobsheet =(id)=>{
     let result = confirm('Want to delete?');
     if (result) {
-      Meteor.call('customer.remove',id);
+      Meteor.call('jobsheet.remove',id);
+      window.location = this.props.match.url
     }
+  }
+  viewJobSheet = (jobsheet) =>{
+    const {jobSheetId ,customerId, type} = jobsheet ;
+    let {oilLabel, airFilter,taped,spark,corborator,clutch
+      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt} = jobsheet
+    let mycheck = {oilLabel, airFilter,taped,spark,corborator,clutch
+      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt}
+    mycheck = JSON.stringify(mycheck)
+    const {customerName ,customerNumber, customerEmail, customerAddress, hpd, vehicleModel, vehicleColor,vehicleKeyNumber,vehicleEngineNumber, vehicleChassisNumber, vehicleSoldDealer } = jobsheet.customer ;
+    const url  = `/jobsheetform/${jobSheetId}/${customerId}/${customerName}/${customerNumber}/${customerEmail}/${customerAddress}/${hpd}/${vehicleModel}/${vehicleColor}/${vehicleKeyNumber}/${vehicleEngineNumber}/${vehicleChassisNumber}/${vehicleSoldDealer}/${type}/${mycheck}`
+    this.props.history.push(url);
   }
 }
 

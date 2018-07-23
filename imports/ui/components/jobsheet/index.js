@@ -2,25 +2,33 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withTracker } from 'meteor/react-meteor-data';
 import {  JobSheetApi } from '../../../api/jobsheet';
+import  JobSheetTable1  from './JobSheetTable.1';
 import  JobSheetTable  from './JobSheetTable';
 import { Meteor } from 'meteor/meteor'
 import moment from 'moment'
-
+// Meteor.subscribe('alljobsheet')
+/*jshint esversion: 6 */
+/*global  componentHandler:true */
 
 export class JobSheet extends Component {
   state={
     tab:1,
+    toggle:false
   }
   handleTabChange =(tab)=> this.setState({tab})
-
-  componentDidMount = () => {
-    // Meteor.call('jobsheet.get',(err,res)=>{
-    //   console.log(err);
-    //   console.log(res);
-    // })
+  
+  handleToggle =()=> {
+    this.setState({toggle:!this.state.toggle})
   }
   
- 
+  componentDidMount() {
+    componentHandler.upgradeDom();
+  }
+  componentDidUpdate() {
+    componentHandler.upgradeDom();
+  }
+  
+  
   render() {
     if (!this.props.loading) {
       return (
@@ -30,32 +38,52 @@ export class JobSheet extends Component {
       )
     }
     const tab = this.state.tab
-    // console.log(this.props);
-    
+    let thisMonthCount = this.props.jobsheet.length
+    let thisWeekCount = this.props.jobsheetOfWeek.length
+    let thisDayCount = this.props.jobsheetOfDay.length
+    let jobsheet = this.props.jobsheet 
+    if (tab === 1 ) {  jobsheet = this.props.jobsheet ;}
+    if (tab === 2 ) {  jobsheet = this.props.jobsheetOfWeek ;}
+    if (tab === 3 ) {  jobsheet = this.props.jobsheetOfDay ;}
+    jobsheet = jobsheet.filter (jobsheet => {
+      let name = jobsheet.customer.customerName.toLowerCase ();
+      return name.indexOf (this.props.search.toLowerCase ()) !== -1;
+    });
     return (
       <div>
-        <h4> Jobsheet Details</h4>
+        <h6></h6>
         <div className="mytabbar">
           <div className="demo-card-wide mdl-shadow--2dp" 
             onClick={()=> this.handleTabChange(1)}
             style={{backgroundColor:tab === 1 ? '#efefef' : 'white'}}>
             <div>This Month</div>
-            <div>213</div>
+            <div>{thisMonthCount}</div>
           </div>
           <div className="demo-card-wide mdl-shadow--2dp" 
             onClick={()=> this.handleTabChange(2)}
             style={{backgroundColor:tab === 2 ? '#efefef' : 'white'}}>
             <div>This Week</div>
-            <div>654</div>
+            <div>{thisWeekCount}</div>
           </div>
           <div className="demo-card-wide mdl-shadow--2dp"  
             onClick={()=> this.handleTabChange(3)}
             style={{backgroundColor:tab === 3 ? '#efefef' : 'white'}}>
             <div>This Day</div>
-            <div>4</div>
+            <div>{thisDayCount}</div>
+          </div>
+          <div className="demo-card-wide mdl-shadow--2dp"  
+            style={styles.toggle}>
+            <label className="mdl-switch mdl-js-switch mdl-js-ripple-effect"  htmlFor="switch-1">
+              <input type="checkbox" id="switch-1" className="mdl-switch__input" checked={this.state.toggle} onChange={()=>this.handleToggle()}/>
+              <span className="mdl-switch__label"></span>
+            </label>
           </div>
         </div>
-        <JobSheetTable customers={[]} />
+        {this.state.toggle ? 
+          <JobSheetTable jobsheets={jobsheet} />
+          :  
+          <JobSheetTable1 jobsheets={jobsheet} delete={true} />
+        }
       </div>
     )
   }
@@ -76,3 +104,8 @@ export default withTracker(() => {
 })(withRouter (JobSheet));
 
 
+const styles = {
+  toggle:{
+    width:50
+  }
+}

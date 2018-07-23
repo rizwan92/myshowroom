@@ -1,10 +1,12 @@
 /*jshint esversion: 6 */
 /*global  componentHandler:true */
 import React, { Component } from 'react';
-import {
-  NavLink,withRouter
-} from 'react-router-dom';
+import { NavLink,withRouter } from 'react-router-dom';
 export class HomePage extends Component {
+
+  state ={
+    search:''
+  }
 
   componentDidMount() {
     componentHandler.upgradeDom();
@@ -13,11 +15,11 @@ export class HomePage extends Component {
     componentHandler.upgradeDom();
   }
 
-  render() {
+  render() {    
     return (
       <div>
         <div className="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-          <header className="demo-header mdl-layout__header mdl-color--teal-300 mdl-color-text--black-600">
+          <header className="demo-header mdl-layout__header  mdl-color-text--white">
             <div className="mdl-layout__header-row">
               <span
                 className="mdl-layout-title"
@@ -28,10 +30,28 @@ export class HomePage extends Component {
               </span>
 
               <div className="mdl-layout-spacer" />
+              <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+                <label className="mdl-button mdl-js-button mdl-button--icon"
+                  htmlFor="fixed-header-drawer-exp">
+                  <i className="material-icons">search</i>
+                </label>
+                <div className="mdl-textfield__expandable-holder">
+                  <input className="mdl-textfield__input" style={{borderColor:'white'}} type="text" name="sample"
+                    onChange={(e)=>this.setState({search:e.target.value})} id="fixed-header-drawer-exp" />
+                </div>
+              </div>
             </div>
           </header>
-          <div className="demo-drawer mdl-layout__drawer mdl-color--white-grey-900 mdl-color-text--black-grey-50">
-            <span className="mdl-layout-title">Star Auto</span>
+          <div className="demo-drawer mdl-layout__drawer ">
+
+            <header className="demo-drawer-header">
+              <img src="http://www.websoftcompany.com/image/user.png" className="demo-avatar" />
+              <span>hello@example.com</span>
+              <span className="mdl-layout-title">Star Auto</span>
+              <div className="mdl-layout-spacer"></div>
+            </header>
+            <hr />
             <nav
               className={'demo-navigation mdl-navigation mdl-color--black-grey-800'}>
               <NavLink className="mdl-navigation__link" to="/" style={{fontSize:13}} >
@@ -65,7 +85,7 @@ export class HomePage extends Component {
             </nav>
           </div>
           <main className="mdl-layout__content" style={{ padding: 20 }}>
-            {this.props.children}
+            {this.props.children(this.state.search)}
           </main>
         </div>
 

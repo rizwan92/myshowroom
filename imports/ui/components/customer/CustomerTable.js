@@ -29,7 +29,7 @@ export class CustomerTable extends Component {
                   <td>{customer.vehicleColor}</td>
                   <td>{customer.vehicleSoldDealer}</td>
                   <td><i className="material-icons" style={{color:'blue'}} onClick={()=>this.props.history.push(`/customeredit/${customer._id}`)}>create</i></td>
-                  <td><i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteCustomer(customer._id)}>clear</i></td>
+                  <td><i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteCustomer(customer._id)}>delete</i></td>
                 </tr>
               )
             })

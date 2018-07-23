@@ -42,13 +42,7 @@ Meteor.methods({
       },
     });
   },
-  'customer.bynames'(showroomId,searchValue) {    
-    // const customers = CustomerApi.find({$or:[{customerName:new RegExp(searchValue, 'gi')},{showroomId}]}).fetch()    
-    const customers = CustomerApi.find({customerName:new RegExp(searchValue, 'gi'),showroomId}).fetch()    
-    // var phrase = '"' + searchValue + '"';
-    // const customers = CustomerApi.find({ $text: { $search: phrase }},{ fields: { _id: 1 } } ).fetch()    
-    return customers 
-  },
+  
   'customer.remove'(customerId) {
     check(customerId, String);
     CustomerApi.remove(customerId);
@@ -69,4 +63,25 @@ if (Meteor.isServer) {
     var startOfMonth = moment().startOf ('month').toDate ();
     return CustomerApi.find({ createdAt: {$gte: startOfMonth}},{sort: {createdAt: -1}})      
   });
+  Meteor.methods({
+    'customer.bynames'(showroomId,searchValue) {    
+      // const customers = CustomerApi.find({$or:[{customerName:new RegExp(searchValue, 'gi')},{showroomId}]}).fetch()    
+      // const customers = CustomerApi.find({customerName:new RegExp(searchValue, 'gi'),showroomId}).fetch()
+      const pipeline = [
+        { $match : { showroomId,customerName:new RegExp(searchValue, 'gi') } },
+        {
+          $lookup:
+              {
+                from: 'jobsheets',
+                localField: '_id',
+                foreignField: 'customerId',
+                as: 'jobsheets',
+              },      
+        },
+        
+      ]; 
+      const customers = CustomerApi.aggregate(pipeline).toArray()
+      return customers 
+    },
+  })
 }

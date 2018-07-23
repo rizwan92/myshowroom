@@ -5,11 +5,28 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import  CustomerTable  from './CustomerTable';
 import moment from 'moment'
+import CustomerTable1 from './CustomerTable.1';
+
+/*jshint esversion: 6 */
+/*global  componentHandler:true */
+
 export class Customer extends Component {
   state={
-    tab:1
+    tab:1,
+    toggle:false
   }
   handleTabChange =(tab)=> this.setState({tab})
+  
+  handleToggle =()=> {
+    this.setState({toggle:!this.state.toggle})      
+  }
+  componentDidMount() {
+    componentHandler.upgradeDom();
+  }
+  componentDidUpdate() {
+    componentHandler.upgradeDom();
+  }
+  
 
   render() {
     if (!this.props.loading) {
@@ -27,9 +44,14 @@ export class Customer extends Component {
     if (tab === 1 ) {  customers = this.props.customers ;}
     if (tab === 2 ) {  customers = this.props.customersOfWeek ;}
     if (tab === 3 ) {  customers = this.props.customersOfDay ;}
+    let toggle = this.state.toggle    
+    customers = customers.filter (cutomer => {
+      let name = cutomer.customerName.toLowerCase ();
+      return name.indexOf (this.props.search.toLowerCase ()) !== -1;
+    });
     return (
       <div>
-        <h4>Customers Details</h4>
+        <h6></h6>
         <div className="mytabbar">
           <div className="demo-card-wide mdl-shadow--2dp" 
             onClick={()=> this.handleTabChange(1)}
@@ -49,8 +71,20 @@ export class Customer extends Component {
             <div>This Day</div>
             <div>{thisDayCount}</div>
           </div>
+          <div className="demo-card-wide mdl-shadow--2dp"  
+            style={styles.toggle}>
+            <label className="mdl-switch mdl-js-switch mdl-js-ripple-effect"  htmlFor="switch-1">
+              <input type="checkbox" id="switch-1" className="mdl-switch__input" checked={toggle} onChange={()=>this.handleToggle()}/>
+              <span className="mdl-switch__label"></span>
+            </label>
+          </div>
         </div>
-        <CustomerTable customers={customers} />
+        {
+          this.state.toggle ? 
+            <CustomerTable customers={customers} />
+            :
+            <CustomerTable1 customers={customers}/>
+        }
       </div>
     )
   }
@@ -63,13 +97,18 @@ export default withTracker(() => {
   var startOfWeek = moment ().startOf ('week').toDate ();
   var endOfWeek = moment ().endOf ('week').toDate ();
   var d = new Date();
-  d.setHours(0,0,0,0);    
+  d.setHours(0,0,0,0);      
   return {
     customers: CustomerApi.find({ createdAt: {$gte: new Date(startOfMonth), $lte: new Date(endOfMonth)}},{sort: {createdAt: -1}}).fetch(),
     customersOfWeek: CustomerApi.find({ createdAt: {$gte: new Date(startOfWeek), $lte: new Date(endOfWeek)}},{sort: {createdAt: -1}}).fetch(),
     customersOfDay: CustomerApi.find({ createdAt: {$gte: d}},{sort: {createdAt: -1}}).fetch(),
-    loading:handle.ready()
+    loading:handle.ready(),
   };
 })(withRouter (Customer));
 
 
+const styles = {
+  toggle:{
+    width:50
+  }
+}

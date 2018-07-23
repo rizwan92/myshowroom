@@ -42,9 +42,9 @@ Meteor.methods({
   }
 });
 if (Meteor.isServer) {
-  // CounterApi._ensureIndex({
-  //   'counterName': 'text'
-  // });
+  CounterApi._ensureIndex({
+    'showroomId': 1,
+  });
   // Meteor.publish('counter', function userPublication(userid) {
   //   return CounterApi.find({_id:userid});
   // });
