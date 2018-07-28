@@ -102,7 +102,7 @@ if (Meteor.isServer) {
     let daysbefor = moment().subtract(parseInt(numberOfDays), 'days');
     daysbefor.set({hour:0,minute:0,second:0,millisecond:0})    
     const pipeline = [
-      { $match : { showroomId,createdAt:{$lte:new Date(daysbefor) },status:1 } },
+      { $match : { showroomId,createdAt:{$gte:new Date(daysbefor) },status:1 } },
       { $sort : { createdAt : -1 } },
       {
         $lookup:

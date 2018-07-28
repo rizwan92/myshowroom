@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import  CustomerTable  from './CustomerTable';
 import moment from 'moment'
 import CustomerTable1 from './CustomerTable.1';
+import Modal from '../Modal';
 
 /*jshint esversion: 6 */
 /*global  componentHandler:true */
@@ -13,21 +14,42 @@ import CustomerTable1 from './CustomerTable.1';
 export class Customer extends Component {
   state={
     tab:1,
-    toggle:false
+    toggle:false,
+    isModalOpen:false
   }
-  handleTabChange =(tab)=> this.setState({tab})
+  openModal =()=>this.setState({isModalOpen:true})
+  closeModal =()=>this.setState({isModalOpen:false})
+
+  handleTabChange =(tab)=>{
+    componentHandler.upgradeDom();   
+    this.setState({tab,isModalOpen:false})
+  }
   
   handleToggle =()=> {
     this.setState({toggle:!this.state.toggle})      
   }
   componentDidMount() {
     componentHandler.upgradeDom();
+    document.addEventListener('deviceready', this.onDeviceReady, false);
   }
   componentDidUpdate() {
     componentHandler.upgradeDom();
   }
+  onDeviceReady = ()=>{
+    document.addEventListener('backbutton', this.handleBackButton, false);
+  }
   
-
+  handleBackButton=(event)=>{
+    event.stopPropagation();        
+    event.preventDefault();
+    if (this.state.isModalOpen) { 
+      this.closeModal()
+    }else{
+      this.props.history.goBack()
+    }
+  }
+  
+  
   render() {
     if (!this.props.loading) {
       return (
@@ -36,6 +58,7 @@ export class Customer extends Component {
         </div>
       )
     }
+    
     let thisMonthCount = this.props.customers.length
     let thisWeekCount = this.props.customersOfWeek.length
     let thisDayCount = this.props.customersOfDay.length
@@ -48,7 +71,7 @@ export class Customer extends Component {
     customers = customers.filter (cutomer => {
       let name = cutomer.customerName.toLowerCase ();
       return name.indexOf (this.props.search.toLowerCase ()) !== -1;
-    });
+    });    
     return (
       <div>
         <h6></h6>
@@ -81,10 +104,46 @@ export class Customer extends Component {
         </div>
         {
           this.state.toggle ? 
-            <CustomerTable customers={customers} />
+            <div>
+              {customers.length === 0 ? <h6>No records Available</h6>:<CustomerTable customers={customers} />}
+            </div>
             :
-            <CustomerTable1 customers={customers}/>
+            <div>
+              {customers.length === 0 ? <h6>No records Available</h6>:<CustomerTable1 customers={customers} />}
+            </div>
         }
+        <button style={{position:'fixed',bottom:20,right:20,zIndex:10}}
+          className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+          id="customerfilter"
+          onClick={()=>this.setState({isModalOpen:!this.state.isModalOpen})}>
+          <i className="material-icons">filter_list</i>
+        </button>
+        { this.state.isModalOpen ?<Modal
+          isModalOpen={this.state.isModalOpen}
+          closeModal={this.closeModal}
+          style={modalStyle}>
+          <div >
+            <ul className="demo-list-control mdl-list">
+              {
+                data.map((d,i)=>{  
+                  return(
+                    <li className="mdl-list__item" key={i}  onClick={()=>this.handleTabChange(d.value)}>
+                      <span className="mdl-list__item-primary-content">{d.text}</span>
+                      <span className="mdl-list__item-secondary-action">
+                        <label className="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor={`list-option-${i+100}`}>
+                          <input type="radio" id={`list-option-${i+100}`}className="mdl-radio__button" name="options" value="1"
+                            onClick={()=>this.handleTabChange(d.value)}
+                            onChange={()=>{}}
+                            checked={d.value == tab} />
+                        </label>
+                      </span>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
+        </Modal>: null}
       </div>
     )
   }
@@ -106,9 +165,19 @@ export default withTracker(() => {
   };
 })(withRouter (Customer));
 
+const data =[
+  {text:'This Month',value:1},
+  {text:'This Week',value:2},
+  {text:'This Day',value:3},
+]
 
 const styles = {
   toggle:{
     width:50
   }
 }
+const modalStyle = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0,0.5)'
+  }
+};

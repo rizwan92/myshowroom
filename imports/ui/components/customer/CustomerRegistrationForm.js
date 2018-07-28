@@ -57,15 +57,16 @@ export class CustomerRegistrationForm extends Component {
   render() {
     const id = this.props.match.params.id
     return (
-      <div >
+      <div>
         { id  === undefined ?   null 
           :
           <i className="material-icons" style={{fontSize:50}} onClick={()=> this.props.history.goBack()}>keyboard_backspace</i> 
         }
         <center>
-          <h4>{ id  === undefined ?   'Registere Customer' : 'Edit Customer'}</h4>
-          <form id="customerRegistrationForm" className="myform" onSubmit={id === undefined ? (e)=>this.onSubmit(e) : (e)=>this.onUpdate(e)}>
-            <h5 style={{textAlign:'left'}}>Customer Detail</h5> 
+          { id  === undefined ?  null : <h6 >Edit Customer</h6>}
+          <form id="customerRegistrationForm" className="myform" onSubmit={id === undefined ? (e)=>this.onSubmit(e) : (e)=>this.onUpdate(e)}
+            style={{padding:'0.9rem'}}>
+            <h6 style={{textAlign:'center',color:'black'}}>Customer Detail</h6> 
             <div className='mysubform'> 
               <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input className="mdl-textfield__input myinput" type="text" id="customerName" 
@@ -98,8 +99,7 @@ export class CustomerRegistrationForm extends Component {
                 onChange={(e)=> this.onChange(e)} value={this.state.customerAddress}  id="customerAddress" ></textarea>
               <label className="mdl-textfield__label" htmlFor="customerAddress">Address</label>
             </div>
-            <h5 style={{textAlign:'left'}}>Vehicle Detail </h5> 
-
+            <h6 style={{textAlign:'center',color:'black'}}>Vehicle Detail </h6> 
             <div className='mysubform'> 
               <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input className="mdl-textfield__input myinput" type="text" id="vehicleModel" 

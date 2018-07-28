@@ -9,7 +9,7 @@ body {
   cursor: pointer;
 }
 
-.demo-layout .mdl-layout__header .mdl-layout__drawer-button {
+.demo-layout {
   color: rgba(0, 0, 0, 0.54);
 }
 .mdl-layout__drawer .avatar {
@@ -58,8 +58,8 @@ body {
   font-weight: 500;
 }
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
-  background-color: #00bcd4;
   color: #37474f;
+  cursor: pointer !important;
 }
 .demo-navigation .mdl-navigation__link .material-icons {
   font-size: 24px;
@@ -126,8 +126,7 @@ body {
   z-index: 900;
 }
 .demo-list-control {
-  width: 70% !important;
-  margin-top: 20px;
+  width: 100% !important;
 }
 
 .demo-list-radio {
@@ -207,12 +206,14 @@ body {
 
 .serachtextfield {
   padding-left: 10px;
-  height: 50px;
+  height: 40px;
   width: auto;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 17px;
+  font-size: 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
 }
 
 .mysubform {
@@ -251,8 +252,8 @@ body {
 
 .myloader {
   position: fixed !important;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 40%;
   width: 70px !important;
   height: 70px !important;
 }
@@ -267,4 +268,20 @@ th {
   cursor: pointer !important;
   font-size: 20px !important;
   margin: 10 !important;
+}
+
+#customerfilter {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  #customerselect {
+    display: none;
+  }
+  #customerfilter {
+    display: inherit;
+  }
+  .mytabbar {
+    display: none;
+  }
 }

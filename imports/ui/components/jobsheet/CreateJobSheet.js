@@ -67,12 +67,13 @@ export class CreateJobSheet extends Component {
       return (
         <div>
           <center>
-            <h4>Create Job Sheet</h4>
+            <h6 style={{color:'black'}}></h6>
             <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
               <Autocomplete
                 getItemValue={(item) => {
                   return JSON.stringify(item)
                 }}
+                menuStyle={{...styles.menuStyle}}
                 items={this.state.items}
                 renderItem={(item, isHighlighted) =>{
                   return (<div className="serachtextfield" key={item._id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
@@ -86,12 +87,12 @@ export class CreateJobSheet extends Component {
                 }}
           
                 inputProps={{className:'mdl-textfield__input',placeholder:'Search Customer',
-                  style:{fontSize:40,width:400}}}
+                  style:{fontSize:19,}}}
               />
               {this.state.isLoading ?
                 <div className="mdl-spinner mdl-js-spinner is-active mdl-js-progress" ></div>
                 :
-                null
+                <i className="material-icons">search</i>
               }
 
             </div>
@@ -104,7 +105,7 @@ export class CreateJobSheet extends Component {
                 <div>
                   {
 
-                    jobsheets.length === 0 ? <h2>No Record Found</h2> :
+                    jobsheets.length === 0 ? <h6>No Record Found</h6> :
                       <JobSheetTable1 jobsheets={jobsheets}/>
                   }
                 </div>
@@ -123,7 +124,7 @@ export class CreateJobSheet extends Component {
             <br />
             <br />
             <button onClick={()=>this.createJobSheet()}
-              style={{marginTop:20,width:300}}
+              style={{marginTop:20,width:200}}
               className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                   Create Job Sheet
             </button>
@@ -166,3 +167,18 @@ export class CreateJobSheet extends Component {
 }
 
 export default withRouter(CreateJobSheet)
+
+
+const styles={
+  menuStyle:{
+    borderRadius: '3px',
+    boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+    background: 'rgba(255, 255, 255, 0.9)',
+    padding: '2px 0',
+    fontSize: '90%',
+    position: 'fixed',
+    overflow: 'auto',
+    maxHeight: '50%',
+    zIndex:99
+  }
+}

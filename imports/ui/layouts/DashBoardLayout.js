@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 /*global  componentHandler:true */
 import React, { Component } from 'react';
-import { NavLink,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 export class HomePage extends Component {
 
   state ={
@@ -9,17 +9,29 @@ export class HomePage extends Component {
   }
 
   componentDidMount() {
-    componentHandler.upgradeDom();
+    componentHandler.upgradeDom();    
   }
   componentDidUpdate() {
     componentHandler.upgradeDom();
   }
 
-  render() {    
+  navigate(navigate){
+    this.props.history.push(navigate)
+    var layout = document.querySelector('.mdl-layout');
+    var obfuscator = document.querySelector('.mdl-layout__obfuscator');
+    if (obfuscator.classList.contains('is-visible')) {
+      layout.MaterialLayout.toggleDrawer();
+    }
+  }
+
+  render() {   
+   
+     
     return (
       <div>
-        <div className="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-          <header className="demo-header mdl-layout__header  mdl-color-text--white">
+        <div className="demo-layout mdl-layout  mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header" 
+        >
+          <header className="demo-header mdl-layout__header mdl  mdl-color-text--white"  >
             <div className="mdl-layout__header-row">
               <span
                 className="mdl-layout-title"
@@ -43,7 +55,7 @@ export class HomePage extends Component {
               </div>
             </div>
           </header>
-          <div className="demo-drawer mdl-layout__drawer ">
+          <div className="demo-drawer mdl-layout__drawer">
 
             <header className="demo-drawer-header">
               <img src="http://www.websoftcompany.com/image/user.png" className="demo-avatar" />
@@ -54,37 +66,37 @@ export class HomePage extends Component {
             <hr />
             <nav
               className={'demo-navigation mdl-navigation mdl-color--black-grey-800'}>
-              <NavLink className="mdl-navigation__link" to="/" style={{fontSize:13}} >
-                <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">home</i>
-                 Home
-              </NavLink>
-              <NavLink className="mdl-navigation__link" to="/customerform" style={{fontSize:13}} >
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/')} style={{fontSize:13}} >
+                <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">adjust</i>
+                 Track
+              </a>
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/customerform')} style={{fontSize:13}} >
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">person_add</i>
                 Add Customers
-              </NavLink>
-              <NavLink className="mdl-navigation__link" to="/customer" style={{fontSize:13}} >
+              </a>
+              <a className="mdl-navigation__link"  onClick={()=>this.navigate('/customer')} style={{fontSize:13}} >
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">person</i>
                 Customer Details
-              </NavLink>
-              <NavLink className="mdl-navigation__link" to="/createjobsheet" style={{fontSize:13}}>
+              </a>
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/createjobsheet')}  style={{fontSize:13}}>
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">add_to_photos</i>
                Add Jobsheets
-              </NavLink>
-              <NavLink className="mdl-navigation__link" to="/jobsheet" style={{fontSize:13}}>
+              </a>
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/jobsheet')}  style={{fontSize:13}}>
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">description</i>
                 Jobsheet Details
-              </NavLink>
+              </a>
               <div className="mdl-layout-spacer" />
-              <NavLink
+              <a
                 className="mdl-navigation__link"
-                to={process.env.PUBLIC_URL + ''}
+                onClick={()=>this.navigate('/somewhere')} 
               >
                 <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation"> help_outline</i>
                 <span className="visuallyhidden">Help</span>
-              </NavLink>
+              </a>
             </nav>
           </div>
-          <main className="mdl-layout__content" style={{ padding: 20 }}>
+          <main className="mdl-layout__content">
             {this.props.children(this.state.search)}
           </main>
         </div>
@@ -105,3 +117,11 @@ export class HomePage extends Component {
 }
 
 export default withRouter(HomePage);
+
+const styles ={
+  header:{
+    WebkitBoxShadow: '9px 12px 34px -11px rgba(0, 0, 0, 0.77) !important',
+    MozBoxShadow: '9px 12px 34px -11px rgba(0, 0, 0, 0.77) !important',
+    boxShadow: '9px 12px 34px -11px rgba(0, 0, 0, 0.77) !important'
+  }
+}

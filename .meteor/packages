@@ -23,9 +23,3 @@ react-meteor-data
 mongo
 jcbernack:reactive-aggregate
 meteorhacks:aggregate
-<<<<<<< HEAD
-
-=======
-omega:meteor-desktop-watcher@=1.5.0
-omega:meteor-desktop-bundler@=1.5.0
->>>>>>> 4163f82f8befcc9b865323c3a2947b1d5355e221

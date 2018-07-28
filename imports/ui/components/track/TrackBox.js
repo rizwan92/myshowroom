@@ -26,9 +26,7 @@ componentDidMount() {
   if (this.props.jobsheet.track) {
     const {sendSms1,sendSms2,servicing,complete,progress} = this.props.jobsheet.track
     this.setState({sendSms1,sendSms2,servicing,complete,progress},()=>{
-      this.makeProgress(progress) 
-      console.log(this.state);
-           
+      this.makeProgress(progress)            
     })
   }
 }
@@ -70,7 +68,7 @@ render() {
   const { customer } = this.props.jobsheet
   return (
     <div>
-      <div className="mdl-card mdl-shadow--2dp" style={{width:'100%',display:'flex',flexDirection:'column',backgroundColor:'#00e676',margin:10}}>
+      <div className="mdl-card mdl-shadow--2dp" style={styles.container}>
         <div  style={{width:'100%',display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
           <div style={{flex:1,minWidth:300}}>
             <div className="mdl-card__title mdl-card--expand">
@@ -94,7 +92,7 @@ render() {
               <option value={4}>Complete</option>
             </select>
             <button 
-              style={{marginTop:20,width:150,backgroundColor:'white',color:'black'}}
+              style={{margin:10,backgroundColor:'white',color:'black'}}
               className="mdl-button mdl-js-button mdl-button mdl-button--colored"
               onClick={()=>this.onSubmit()}>
                   submit
@@ -187,6 +185,10 @@ export default TrackBox
 
 
 const styles ={
+  container:{
+    width:'100%',display:'flex',flexDirection:'column',
+    background:'linear-gradient(to bottom, #ffffff, #ffffff)',margin:10
+  },
   cardrow:{
     display:'flex',
     alignItmes:'center',

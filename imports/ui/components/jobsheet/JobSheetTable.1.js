@@ -55,9 +55,9 @@ export class JobSheetTable extends Component {
   viewJobSheet = (jobsheet) =>{
     const {jobSheetId ,customerId, type} = jobsheet ;
     let {oilLabel, airFilter,taped,spark,corborator,clutch
-      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt} = jobsheet
+      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt} = jobsheet
     let mycheck = {oilLabel, airFilter,taped,spark,corborator,clutch
-      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt}
+      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt}
     mycheck = JSON.stringify(mycheck)
     const {customerName ,customerNumber, customerEmail, customerAddress, hpd, vehicleModel, vehicleColor,vehicleKeyNumber,vehicleEngineNumber, vehicleChassisNumber, vehicleSoldDealer } = jobsheet.customer ;
     const url  = `/jobsheetform/${jobSheetId}/${customerId}/${customerName}/${customerNumber}/${customerEmail}/${customerAddress}/${hpd}/${vehicleModel}/${vehicleColor}/${vehicleKeyNumber}/${vehicleEngineNumber}/${vehicleChassisNumber}/${vehicleSoldDealer}/${type}/${mycheck}`

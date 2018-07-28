@@ -22,6 +22,7 @@ export class JobSheetForm extends Component {
     electrical:false,
     cabel:false,
     nutBolt:false,
+    createdAt:new Date()
   }
 
   
@@ -54,10 +55,10 @@ export class JobSheetForm extends Component {
   componentDidMount = () => {
     if (this.props.match.params.mycheck !== 'null') {
       let {oilLabel, airFilter,taped,spark,corborator,clutch
-        ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt} = JSON.parse(this.props.match.params.mycheck)
+        ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt} = JSON.parse(this.props.match.params.mycheck)
       this.setState({
         oilLabel,airFilter,taped,spark,corborator,clutch,
-        breake,diveChain,battery,fuel,electrical,cabel,nutBolt,
+        breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt
       })
     } 
   }
@@ -73,6 +74,11 @@ export class JobSheetForm extends Component {
           keyboard_backspace
         </i>
         <div style={{display:'flex',justifyContent:'flex-end'}}>
+          <button  onClick={()=>this.print()}
+            style={{width:200,margin:10}}
+            className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                Print
+          </button>
           <button  onClick={()=>this.createJobSheet()}
             style={{width:200,margin:10}}
             className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
