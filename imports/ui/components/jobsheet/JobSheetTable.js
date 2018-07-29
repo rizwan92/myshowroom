@@ -40,20 +40,19 @@ export class JobSheetTable extends Component {
   deleteJobsheet =(id)=>{
     let result = confirm('Want to delete?');
     if (result) {
+      this.showSnackBar('Successfully Deleted')
       Meteor.call('jobsheet.remove',id);
       window.location = this.props.match.url
     }
   }
   viewJobSheet = (jobsheet) =>{
-    const {jobSheetId ,customerId, type} = jobsheet ;
-    let {oilLabel, airFilter,taped,spark,corborator,clutch
-      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt} = jobsheet
-    let mycheck = {oilLabel, airFilter,taped,spark,corborator,clutch
-      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt}
-    mycheck = JSON.stringify(mycheck)
-    const {customerName ,customerNumber, customerEmail, customerAddress, hpd, vehicleModel, vehicleColor,vehicleKeyNumber,vehicleEngineNumber, vehicleChassisNumber, vehicleSoldDealer } = jobsheet.customer ;
-    const url  = `/jobsheetform/${jobSheetId}/${customerId}/${customerName}/${customerNumber}/${customerEmail}/${customerAddress}/${hpd}/${vehicleModel}/${vehicleColor}/${vehicleKeyNumber}/${vehicleEngineNumber}/${vehicleChassisNumber}/${vehicleSoldDealer}/${type}/${mycheck}`
+    const url  = `/jobsheetform/${jobsheet._id}/null`
     this.props.history.push(url);
+  }
+  showSnackBar(msg){
+    var snackbarContainer = document.querySelector('#demo-toast-example');
+    var data = {message: msg};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
 }
 

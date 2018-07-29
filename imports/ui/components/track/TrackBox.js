@@ -92,7 +92,7 @@ render() {
               <option value={4}>Complete</option>
             </select>
             <button 
-              style={{margin:10,backgroundColor:'white',color:'black'}}
+              style={{margin:10,border:'1px solid gray',color:'black'}}
               className="mdl-button mdl-js-button mdl-button mdl-button--colored"
               onClick={()=>this.onSubmit()}>
                   submit

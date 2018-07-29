@@ -137,28 +137,14 @@ export class CreateJobSheet extends Component {
       if (this.state.customer === null) {
         Bert.alert('ग्राहक select kare', 'info', 'growl-top-right');
         return
-      }
-      let customerId = this.state.customer._id;
-      let customerName = this.state.customer.customerName;
-      let customerNumber = this.state.customer.customerNumber;
-      let customerEmail = this.state.customer.customerEmail;
-      let customerAddress = this.state.customer.customerAddress;
-      let hpd = this.state.customer.hpd
-      let vehicleModel = this.state.customer.vehicleModel;
-      let vehicleColor = this.state.customer.vehicleColor;
-      let vehicleKeyNumber = this.state.customer.vehicleKeyNumber;
-      let vehicleEngineNumber = this.state.customer.vehicleEngineNumber;
-      let vehicleChassisNumber = this.state.customer.vehicleChassisNumber;
-      let vehicleSoldDealer = this.state.customer.vehicleSoldDealer;
-      let type = this.state.type;
+      }      
       Meteor.call('counter.get','1',(err,res)=>{
         if (err) {
           return
         }
         else{
           const jobSheetId = res.year + '-' + res.counter;
-          let mycheck = null
-          const url  = `/jobsheetform/${jobSheetId}/${customerId}/${customerName}/${customerNumber}/${customerEmail}/${customerAddress}/${hpd}/${vehicleModel}/${vehicleColor}/${vehicleKeyNumber}/${vehicleEngineNumber}/${vehicleChassisNumber}/${vehicleSoldDealer}/${type}/${mycheck}`
+          const url  = `/newjobsheet/${jobSheetId}/${this.state.customer._id}/${this.state.type}`
           this.props.history.push(url);
         }
       })

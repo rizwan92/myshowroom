@@ -9,7 +9,7 @@ import Modal from '../Modal';
 export class Track extends Component {
   
   state={
-    select:localStorage.getItem('numberOfDays') === null ? 30 : localStorage.getItem('numberOfDays'),
+    select:localStorage.getItem('numberOfDays') === null ? 0 : localStorage.getItem('numberOfDays'),
     isModalOpen:false
   }
   
@@ -22,18 +22,19 @@ export class Track extends Component {
     location.reload()
   }
   componentDidMount = () => {
-    document.addEventListener('backbutton', this.handleBackButton, false);
+    // document.addEventListener('backbutton', this.handleBackButton, false);
   }
   
-  handleBackButton=(event)=>{
-    event.preventDefault();
-    event.stopPropagation();        
-    if (this.state.isModalOpen) { 
-      this.closeModal()
-    }else{
-      this.props.history.goBack()
-    }
-  }
+  // handleBackButton=(event)=>{
+  //   event.preventDefault();
+  //   event.stopPropagation();        
+  //   if (this.state.isModalOpen) { 
+  //     this.closeModal()
+  //   }else{
+  //     this.props.history.goBack()
+  //   }
+  // }
+
   render() {
     if (!this.props.loading) {
       return (
@@ -49,11 +50,11 @@ export class Track extends Component {
         <div style={{display:'flex',flex:1,justifyContent:'flex-end'}} >
           <div className="demo-card-wide mdl-shadow--2dp" id="customerselect" >
             <select className="mdl-textfield__input"  value={this.state.select} onChange={(e)=>this.selectOnChange(e.target.value)}>
-              <option value={0}>Select number of Days old Customer ? </option>
+              <option value={0}>Select Month </option>
               {
                 data.map((d,i)=>{
                   return(
-                    <option value={d.value} key={i}>{d.text}</option>
+                    <option value={d.text} key={i}>{d.text}</option>
                   )
                 })
               }
@@ -82,14 +83,14 @@ export class Track extends Component {
               {
                 data.map((d,i)=>{
                   return(
-                    <li className="mdl-list__item" key={i}  onClick={()=>this.selectOnChange(d.value)}>
+                    <li className="mdl-list__item" key={i}  onClick={()=>this.selectOnChange(d.text)}>
                       <span className="mdl-list__item-primary-content">{d.text}</span>
                       <span className="mdl-list__item-secondary-action">
                         <label className="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor={`list-option-${i}`}>
                           <input type="radio" id={`list-option-${i}`}className="mdl-radio__button" name="options" value="1"
-                            onClick={()=>this.selectOnChange(d.value)}
+                            onClick={()=>this.selectOnChange(d.text)}
                             onChange={()=>{}}
-                            checked={d.value == this.state.select} />
+                            checked={d.text == this.state.select} />
                         </label>
                       </span>
                     </li>
@@ -121,14 +122,16 @@ const modalStyle = {
 };
 
 const data = [
-  {text:'10  Days old Customer' ,value:10},
-  {text:'20  Days old Customer' ,value:20},
-  {text:'30  Days old Customer' ,value:30},
-  {text:'40  Days old Customer' ,value:40},
-  {text:'50  Days old Customer' ,value:50},
-  {text:'60  Days old Customer' ,value:60},
-  {text:'70  Days old Customer' ,value:70},
-  {text:'80  Days old Customer' ,value:80},
-  {text:'90  Days old Customer' ,value:90},
-  {text:'100  Days old Customer' ,value:100},
+  {text:'January', value:1},
+  {text:'February' ,value:2},
+  {text:'March' ,value:3},
+  {text:'April' ,value:4},
+  {text:'May' ,value:5},
+  {text:'Jun' ,value:6},
+  {text:'July' ,value:7},
+  {text:'August' ,value:8},
+  {text:'September' ,value:9},
+  {text:'October' ,value:10},
+  {text:'November' ,value:11},
+  {text:'December' ,value:12},
 ]

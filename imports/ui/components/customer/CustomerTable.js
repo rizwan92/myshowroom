@@ -41,8 +41,14 @@ export class CustomerTable extends Component {
   deleteCustomer =(id)=>{
     let result = confirm('Want to delete?');
     if (result) {
+      this.showSnackBar('Successfully Deleted')
       Meteor.call('customer.remove',id);
     }
+  }
+  showSnackBar(msg){
+    var snackbarContainer = document.querySelector('#demo-toast-example');
+    var data = {message: msg};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
 }
 

@@ -20,7 +20,7 @@ export class App extends Component {
               <Route exact path='/customeredit/:id' render={(props)=><CustomerRegistrationForm {...props} search={search} />} />
               <Route exact path='/jobsheet/' render={(props)=><Jobsheet {...props} search={search} />} />
               <Route exact path='/createjobsheet' render={(props)=><CreateJobSheet {...props} search={search} />} />
-              <Route exact path='/jobsheetform/:jobSheetId/:customerId/:customerName/:customerNumber/:customerEmail/:customerAddress/:hpd/:vehicleModel/:vehicleColor/:vehicleKeyNumber/:vehicleEngineNumber/:vehicleChassisNumber/:vehicleSoldDealer/:type/:mycheck' component={JobSheetForm}/>
+              <Route exact path='/newjobsheet/:jobSheetId/:customerId/:type' component={JobSheetForm}/>
               <Route component={NoMatch} />
             </Switch>
           )}}

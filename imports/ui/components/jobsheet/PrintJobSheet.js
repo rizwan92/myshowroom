@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import moment from 'moment';
 class PrintJobSheet extends Component {
 
-  render() {
-    let { jobSheetId,customerName,customerNumber,customerEmail,customerAddress,hpd,
+  render() {    
+    let { customerName,customerNumber,customerEmail,customerAddress,hpd,
       vehicleModel,vehicleColor,vehicleKeyNumber,vehicleEngineNumber,vehicleChassisNumber,
-      vehicleSoldDealer,type} = this.props.detail   
-    let { oilLabel,airFilter,taped,spark,corborator,clutch,breake,
-      diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt} = this.props.mycheck
+      vehicleSoldDealer} = this.props.customerDetail   
+    let { oilLabel,airFilter,taped,spark,corborator,clutch,breake,jobSheetId,
+      diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt,type,registrationNumber,hasRun} = this.props.jobsheetDetail
+    console.log(registrationNumber);
+    console.log(hasRun);
+    
     return (
       <div id="divContents"style={{ width:'21cm',height:'29.7cm'}}>
         <center>

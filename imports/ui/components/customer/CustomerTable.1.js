@@ -3,7 +3,22 @@ import { withRouter } from 'react-router-dom'
 import { Meteor } from 'meteor/meteor'
 import './customer.css'
 import moment from 'moment'
-export class JobSheetTable extends Component {
+
+
+const  CustomerTable1 = (props)=>{
+  if (Meteor.isCordova) {
+    return <ForCordova {...props}/>
+  }else{
+    return(
+      <ForWeb {...props}/>
+    )
+  }
+}
+
+export default withRouter(CustomerTable1)
+
+
+class ForWeb extends Component {
   render() {
     return (
       <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
@@ -21,9 +36,9 @@ export class JobSheetTable extends Component {
                   </div>
                 </div>
                 <div className="mdl-card__supporting-text">
-                  <h2 className="mdl-card__title-text">
+                  <div className="mdl-card__title-text">
                     <div style={styles.cardrow}><i className="material-icons">perm_identity</i>  <div style={styles.margin}>{customer.customerName}</div></div>
-                  </h2>   
+                  </div>   
                 </div>
                 <div className="mdl-card__actions mdl-card--border">
                   <a className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
@@ -44,12 +59,63 @@ export class JobSheetTable extends Component {
   deleteCustomer =(id)=>{
     let result = confirm('Want to delete?');
     if (result) {
-      Meteor.call('jobsheet.remove',id);
+      this.showSnackBar('Successfully Deleted')
+      Meteor.call('customer.remove',id);
     }
+  }
+  showSnackBar(msg){
+    var snackbarContainer = document.querySelector('#demo-toast-example');
+    var data = {message: msg};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
 }
 
-export default withRouter(JobSheetTable);
+
+
+
+
+class ForCordova extends Component {
+  render() {
+    return (
+      <ul className="demo-list-two mdl-list">
+        {
+          this.props.customers.map((customer,i)=>{
+            return(
+              <li className="mdl-list__item mdl-list__item--two-line" key={i}
+                style={{height:70}}>
+                <span className="mdl-list__item-primary-content" onClick={()=>this.props.history.push(`/customeredit/${customer._id}`)}>
+                  <i className="material-icons mdl-list__item-avatar">person</i>
+                  <span>{customer.customerName}</span>
+                  <span className="mdl-list__item-sub-title">{customer.customerNumber}</span>
+                  <span className="mdl-list__item-sub-title">{customer.customerEmail}</span>
+                  <span style={styles.cardrow} className="mdl-list__item-sub-title">{moment(customer.createdAt).format('DD-MM-YYYY')}</span>
+                </span>
+                <span className="mdl-list__item-secondary-content">
+                  <span className="mdl-list__item-secondary-info">Delete</span>
+                  <a className="mdl-list__item-secondary-action" href="#"> <i className="material-icons" 
+                    style={{color:'red'}} onClick={()=> this.deleteCustomer(customer._id)}>delete</i></a>
+                </span>
+              </li>
+            )
+          })
+        }
+      </ul>
+    )
+  }
+  deleteCustomer =(id)=>{
+    let result = confirm('Want to delete?');
+    if (result) {
+      this.showSnackBar('Successfully Deleted')
+      Meteor.call('customer.remove',id);
+    }
+  }
+  showSnackBar(msg){
+    var snackbarContainer = document.querySelector('#demo-toast-example');
+    var data = {message: msg};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+  }
+}
+
 
 const styles ={
   cardrow:{
@@ -57,6 +123,8 @@ const styles ={
     alignItmes:'center',
   },
   margin:{
-    marginLeft:5
+    marginLeft:5,
+    fontSize:'1.2rem',
+    color:'black'
   }
 }

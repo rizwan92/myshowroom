@@ -60,7 +60,7 @@ export class HomePage extends Component {
             <header className="demo-drawer-header">
               <img src="http://www.websoftcompany.com/image/user.png" className="demo-avatar" />
               <span>hello@example.com</span>
-              <span className="mdl-layout-title">Star Auto</span>
+              <span className="mdl-layout-title">Star Auto1</span>
               <div className="mdl-layout-spacer"></div>
             </header>
             <hr />
@@ -117,11 +117,3 @@ export class HomePage extends Component {
 }
 
 export default withRouter(HomePage);
-
-const styles ={
-  header:{
-    WebkitBoxShadow: '9px 12px 34px -11px rgba(0, 0, 0, 0.77) !important',
-    MozBoxShadow: '9px 12px 34px -11px rgba(0, 0, 0, 0.77) !important',
-    boxShadow: '9px 12px 34px -11px rgba(0, 0, 0, 0.77) !important'
-  }
-}

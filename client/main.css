@@ -274,6 +274,10 @@ th {
   display: none;
 }
 
+#mobile-version {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   #customerselect {
     display: none;
@@ -283,5 +287,8 @@ th {
   }
   .mytabbar {
     display: none;
+  }
+  #mobile-version {
+    display: inherit;
   }
 }

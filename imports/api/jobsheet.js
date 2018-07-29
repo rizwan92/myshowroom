@@ -28,6 +28,8 @@ Meteor.methods({
           nutBolt:jobSheet.nutBolt,
           customerId:jobSheet.customerId,
           jobSheetId:jobSheet.jobSheetId,
+          registrationNumber:jobSheet.registrationNumber,
+          hasRun:jobSheet.hasRun,
           type:jobSheet.type,
           status:1,
           createdAt: new Date(),
@@ -55,20 +57,6 @@ Meteor.methods({
   'jobsheet.remove'(id) {
     JobSheetApi.remove(id);
   },
-  // 'jobsheet.get'() {  
-  //   let jobsheet = JobSheetApi.aggregate([
-  //     {
-  //       $lookup:
-  //         {
-  //           from: 'customers',
-  //           localField: 'customerId',
-  //           foreignField: '_id',
-  //           as: 'customers'
-  //         }
-  //     }
-  //   ]);    
-  //   return jobsheet
-  // },
 });
 if (Meteor.isServer) {
   JobSheetApi._ensureIndex({
@@ -98,11 +86,13 @@ if (Meteor.isServer) {
     return something  
     
   });
-  Meteor.publish('thisMonthTrackJobSheet', function userPublication(showroomId,numberOfDays=45) {
-    let daysbefor = moment().subtract(parseInt(numberOfDays), 'days');
-    daysbefor.set({hour:0,minute:0,second:0,millisecond:0})    
+  Meteor.publish('thisMonthTrackJobSheet', function userPublication(showroomId,month='january') {
+    const monthNumber = moment().month(month).format('M');       
+    const rangeDate = getMonthDateRange(new Date().getFullYear().toString(),monthNumber);  
+    const  from  = rangeDate.start;
+    const  to   = rangeDate.end;
     const pipeline = [
-      { $match : { showroomId,createdAt:{$gte:new Date(daysbefor) },status:1 } },
+      { $match : { showroomId,createdAt:{ $gte: from, $lte:to },status:1 } },
       { $sort : { createdAt : -1 } },
       {
         $lookup:
@@ -119,4 +109,10 @@ if (Meteor.isServer) {
     return something  
     
   });
+}
+
+function getMonthDateRange(year, month) {
+  var startDate = moment([year, month - 1]);
+  var endDate = moment(startDate).endOf('month');          
+  return { start: startDate.toDate(), end: endDate.toDate() };
 }

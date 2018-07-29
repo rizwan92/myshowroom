@@ -33,21 +33,21 @@ export class JobSheet extends Component {
   
   componentDidMount() {
     componentHandler.upgradeDom();
-    document.addEventListener('backbutton', this.handleBackButton, false);
+    // document.addEventListener('backbutton', this.handleBackButton, false);
   }
   componentDidUpdate() {
     componentHandler.upgradeDom();
   }
   
-  handleBackButton=(event)=>{
-    event.preventDefault();
-    event.stopPropagation();        
-    if (this.state.isModalOpen) { 
-      this.closeModal()
-    }else{
-      this.props.history.goBack()
-    }
-  }
+  // handleBackButton=(event)=>{
+  //   event.preventDefault();
+  //   event.stopPropagation();        
+  //   if (this.state.isModalOpen) { 
+  //     this.closeModal()
+  //   }else{
+  //     this.props.history.goBack()
+  //   }
+  // }
   
   
   

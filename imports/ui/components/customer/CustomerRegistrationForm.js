@@ -21,16 +21,26 @@ export class CustomerRegistrationForm extends Component {
     vehicleChassisNumber:'',
     vehicleSoldDealer:'',
   }
-  onChange =(e)=> this.setState({[e.target.id]:e.target.value})
+  /*jshint esversion: 6 */
+  /*global  componentHandler:true */
 
+  onChange =(e)=> this.setState({[e.target.id]:e.target.value})
+  componentDidUpdate() {
+    componentHandler.upgradeDom();
+  }
   componentDidMount = () => {
+    componentHandler.upgradeDom();
     if (this.props.match.params.id) {
       Meteor.call('customer.singleitem',this.props.match.params.id,(err,res)=>{
         if (err) {
           Bert.alert(err, 'danger', 'growl-top-right');
+          return
         }
         var divs = document.querySelectorAll('.mdl-textfield');  
-        divs.forEach((div)=>{
+        divs.forEach((div,i)=>{ 
+          if (i === 0) {
+            return
+          }                
           let children  = div.children
           let placeholder = children[1].innerHTML 
           children[0].placeholder =placeholder

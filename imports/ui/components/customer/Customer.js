@@ -30,7 +30,7 @@ export class Customer extends Component {
   }
   componentDidMount() {
     componentHandler.upgradeDom();
-    document.addEventListener('deviceready', this.onDeviceReady, false);
+    // document.addEventListener('deviceready', this.onDeviceReady, false);
   }
   componentDidUpdate() {
     componentHandler.upgradeDom();
@@ -39,15 +39,15 @@ export class Customer extends Component {
     document.addEventListener('backbutton', this.handleBackButton, false);
   }
   
-  handleBackButton=(event)=>{
-    event.stopPropagation();        
-    event.preventDefault();
-    if (this.state.isModalOpen) { 
-      this.closeModal()
-    }else{
-      this.props.history.goBack()
-    }
-  }
+  // handleBackButton=(event)=>{
+  //   event.stopPropagation();        
+  //   event.preventDefault();
+  //   if (this.state.isModalOpen) { 
+  //     this.closeModal()
+  //   }else{
+  //     this.props.history.goBack()
+  //   }
+  // }
   
   
   render() {
