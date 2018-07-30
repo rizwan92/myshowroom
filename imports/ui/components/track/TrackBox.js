@@ -187,7 +187,7 @@ export default TrackBox
 const styles ={
   container:{
     width:'100%',display:'flex',flexDirection:'column',
-    background:'linear-gradient(to bottom, #ffffff, #ffffff)',margin:10
+    background:'#FFC107',margin:10
   },
   cardrow:{
     display:'flex',

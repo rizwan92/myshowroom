@@ -33,7 +33,7 @@ export class JobSheet extends Component {
   
   componentDidMount() {
     componentHandler.upgradeDom();
-    // document.addEventListener('backbutton', this.handleBackButton, false);
+    this.props.changeTitle('Jobsheet Details')    
   }
   componentDidUpdate() {
     componentHandler.upgradeDom();

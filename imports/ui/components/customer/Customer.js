@@ -30,7 +30,7 @@ export class Customer extends Component {
   }
   componentDidMount() {
     componentHandler.upgradeDom();
-    // document.addEventListener('deviceready', this.onDeviceReady, false);
+    this.props.changeTitle('Customer Details')    
   }
   componentDidUpdate() {
     componentHandler.upgradeDom();

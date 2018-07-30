@@ -63,6 +63,25 @@ if (Meteor.isServer) {
     'showroomId': 1,
     'createdAt':1
   });
+  Meteor.methods({
+    'jobsheet.singleitem'(jobSheetId) { 
+      const pipeline = [
+        { $match : { _id:jobSheetId } },
+        {
+          $lookup:
+              {
+                from: 'customers',
+                localField: 'customerId',
+                foreignField: '_id',
+                as: 'customer'
+              },      
+        },
+        { $unwind: '$customer' }
+      ]; 
+      const jobsheet = JobSheetApi.aggregate(pipeline).toArray()
+      return jobsheet 
+    },
+  })
   Meteor.publish('alljobsheet', function userPublication() {
     return JobSheetApi.find({}  )
   });

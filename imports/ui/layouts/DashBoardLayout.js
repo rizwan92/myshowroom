@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom';
 export class HomePage extends Component {
 
   state ={
-    search:''
+    search:'',
+    title:'Home',
   }
 
   componentDidMount() {
@@ -15,7 +16,10 @@ export class HomePage extends Component {
     componentHandler.upgradeDom();
   }
 
-  navigate(navigate){
+  changeTitle =(title)=>this.setState({title})
+
+  navigate(navigate,title){
+    this.changeTitle(title)
     this.props.history.push(navigate)
     var layout = document.querySelector('.mdl-layout');
     var obfuscator = document.querySelector('.mdl-layout__obfuscator');
@@ -38,7 +42,7 @@ export class HomePage extends Component {
                 onClick={() => this.props.history.push('/')}
                 style={{ cursor: 'pointer' }}
               >
-                Star Auto
+                {this.state.title}
               </span>
 
               <div className="mdl-layout-spacer" />
@@ -66,38 +70,38 @@ export class HomePage extends Component {
             <hr />
             <nav
               className={'demo-navigation mdl-navigation mdl-color--black-grey-800'}>
-              <a className="mdl-navigation__link" onClick={()=>this.navigate('/')} style={{fontSize:13}} >
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/','Track')} style={{fontSize:13}} >
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">adjust</i>
                  Track
               </a>
-              <a className="mdl-navigation__link" onClick={()=>this.navigate('/customerform')} style={{fontSize:13}} >
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/customerform','Create Customer')} style={{fontSize:13}} >
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">person_add</i>
                 Add Customers
               </a>
-              <a className="mdl-navigation__link"  onClick={()=>this.navigate('/customer')} style={{fontSize:13}} >
+              <a className="mdl-navigation__link"  onClick={()=>this.navigate('/customer','Customer Details')} style={{fontSize:13}} >
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">person</i>
                 Customer Details
               </a>
-              <a className="mdl-navigation__link" onClick={()=>this.navigate('/createjobsheet')}  style={{fontSize:13}}>
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/createjobsheet','Create Jobsheet')}  style={{fontSize:13}}>
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">add_to_photos</i>
                Add Jobsheets
               </a>
-              <a className="mdl-navigation__link" onClick={()=>this.navigate('/jobsheet')}  style={{fontSize:13}}>
+              <a className="mdl-navigation__link" onClick={()=>this.navigate('/jobsheet','Jobsheet Details')}  style={{fontSize:13}}>
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">description</i>
                 Jobsheet Details
               </a>
               <div className="mdl-layout-spacer" />
               <a
                 className="mdl-navigation__link"
-                onClick={()=>this.navigate('/somewhere')} 
+                onClick={()=>this.navigate('/logout','logout')} 
               >
-                <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation"> help_outline</i>
-                <span className="visuallyhidden">Help</span>
+                <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>
+                <span>Logout</span>
               </a>
             </nav>
           </div>
           <main className="mdl-layout__content">
-            {this.props.children(this.state.search)}
+            {this.props.children(this.state.search,this.changeTitle)}
           </main>
         </div>
 

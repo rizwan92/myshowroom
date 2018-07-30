@@ -16,6 +16,8 @@ export class CreateJobSheet extends Component {
 
     componentDidMount() {
       componentHandler.upgradeDom();
+      this.props.changeTitle('Create Jobsheet')    
+
     }
     componentDidUpdate() {
       componentHandler.upgradeDom();
@@ -66,6 +68,13 @@ export class CreateJobSheet extends Component {
       
       return (
         <div>
+          <i
+            className="material-icons"
+            style={{ cursor: 'pointer', fontSize: 50,margin:10 }}
+            onClick={() => this.props.history.goBack()}
+          >
+          keyboard_backspace
+          </i>
           <center>
             <h6 style={{color:'black'}}></h6>
             <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>

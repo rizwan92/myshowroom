@@ -17,12 +17,21 @@ export class Track extends Component {
   closeModal =()=>this.setState({isModalOpen:false})
   
   selectOnChange =(select)=>{
+    if (select === '0' ) {
+      this.showSnackBar('Please Select Any Month')
+      return
+    }
     localStorage.setItem('numberOfDays',select)
     this.setState({select})
     location.reload()
   }
   componentDidMount = () => {
-    // document.addEventListener('backbutton', this.handleBackButton, false);
+    this.props.changeTitle('Track')
+  }
+  showSnackBar(msg){
+    var snackbarContainer = document.querySelector('#demo-toast-example');
+    var data = {message: msg};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
   
   // handleBackButton=(event)=>{

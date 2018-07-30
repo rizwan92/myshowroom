@@ -65,8 +65,6 @@ if (Meteor.isServer) {
   });
   Meteor.methods({
     'customer.bynames'(showroomId,searchValue) {    
-      // const customers = CustomerApi.find({$or:[{customerName:new RegExp(searchValue, 'gi')},{showroomId}]}).fetch()    
-      // const customers = CustomerApi.find({customerName:new RegExp(searchValue, 'gi'),showroomId}).fetch()
       const pipeline = [
         { $match : { showroomId,customerName:new RegExp(searchValue, 'gi') } },
         {

@@ -8,9 +8,6 @@ class PrintJobSheet extends Component {
       vehicleSoldDealer} = this.props.customerDetail   
     let { oilLabel,airFilter,taped,spark,corborator,clutch,breake,jobSheetId,
       diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt,type,registrationNumber,hasRun} = this.props.jobsheetDetail
-    console.log(registrationNumber);
-    console.log(hasRun);
-    
     return (
       <div id="divContents"style={{ width:'21cm',height:'29.7cm'}}>
         <center>
@@ -115,8 +112,8 @@ class PrintJobSheet extends Component {
                 <div style={mediumText}>मोडल नंबर :- {vehicleModel}</div>
                 <div style={mediumText}>रंग :- {vehicleColor}</div>
                 <div style={mediumText}>चाबी नंबर   :-{vehicleKeyNumber} </div>
-                <div style={mediumText}>रजिस्ट्रेशन नंबर    :-___________ </div>
-                <div style={mediumText}>कितने किलोमीटर चली है     :-{customerAddress} </div>
+                <div style={mediumText}>रजिस्ट्रेशन नंबर    :-{registrationNumber === undefined ? '___________' : registrationNumber} </div>
+                <div style={mediumText}>कितने किलोमीटर चली है     :-{hasRun === undefined ? '': hasRun} </div>
                 <div style={mediumText}>इंजन नंबर   :- {vehicleEngineNumber}</div>
                 <div style={mediumText}>चेसीस /फ्रेम  नंबर    :- {vehicleChassisNumber}</div>
                 <div style={mediumText}>खरीदी  दिनांक    :- _________</div>

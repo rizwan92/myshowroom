@@ -53,15 +53,8 @@ class ForCordova extends Component {
       window.location = this.props.match.url
     }
   }
-  viewJobSheet = (jobsheet) =>{
-    const {jobSheetId ,customerId, type} = jobsheet ;
-    let {oilLabel, airFilter,taped,spark,corborator,clutch
-      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt} = jobsheet
-    let mycheck = {oilLabel, airFilter,taped,spark,corborator,clutch
-      ,breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt}
-    mycheck = JSON.stringify(mycheck)
-    const {customerName ,customerNumber, customerEmail, customerAddress, hpd, vehicleModel, vehicleColor,vehicleKeyNumber,vehicleEngineNumber, vehicleChassisNumber, vehicleSoldDealer } = jobsheet.customer ;
-    const url  = `/jobsheetform/${jobSheetId}/${customerId}/${customerName}/${customerNumber}/${customerEmail}/${customerAddress}/${hpd}/${vehicleModel}/${vehicleColor}/${vehicleKeyNumber}/${vehicleEngineNumber}/${vehicleChassisNumber}/${vehicleSoldDealer}/${type}/${mycheck}`
+  viewJobSheet = (jobsheet) =>{    
+    const url  = `/viewjobsheet/${jobsheet._id}`
     this.props.history.push(url);
   }
   showSnackBar(msg){
@@ -123,7 +116,7 @@ class ForWeb extends Component {
     }
   }
   viewJobSheet = (jobsheet) =>{
-    const url  = `/jobsheetform/${jobsheet._id}/null`
+    const url  = `/viewjobsheet/${jobsheet._id}`
     this.props.history.push(url);
   }
   showSnackBar(msg){

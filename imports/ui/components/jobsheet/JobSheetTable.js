@@ -46,7 +46,7 @@ export class JobSheetTable extends Component {
     }
   }
   viewJobSheet = (jobsheet) =>{
-    const url  = `/jobsheetform/${jobsheet._id}/null`
+    const url  = `/viewjobsheet/${jobsheet._id}`
     this.props.history.push(url);
   }
   showSnackBar(msg){

@@ -29,6 +29,7 @@ export class CustomerRegistrationForm extends Component {
     componentHandler.upgradeDom();
   }
   componentDidMount = () => {
+    this.props.changeTitle('Create Customer')    
     componentHandler.upgradeDom();
     if (this.props.match.params.id) {
       Meteor.call('customer.singleitem',this.props.match.params.id,(err,res)=>{
