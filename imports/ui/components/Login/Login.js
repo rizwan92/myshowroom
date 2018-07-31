@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import {Meteor} from 'meteor/meteor'
+
 export class AdminLogin extends Component {
     state ={
       email:'',
@@ -7,6 +9,8 @@ export class AdminLogin extends Component {
     }
   /*jshint esversion: 6 */
   /*global  componentHandler:true */
+  /*global  Bert:true*/
+
  onChange =(e)=>this.setState({[e.target.id]:e.target.value})
 
  showSnackBar(msg){
@@ -28,11 +32,14 @@ export class AdminLogin extends Component {
    const password = this.state.password.trim()
    if (email === '') {this.showSnackBar('Enter Email Please'); return;}
    if (password === '') {this.showSnackBar('Enter Password Please'); return;}
-   console.log(email);
-   console.log(password);
-
-
-
+   Meteor.call('showroom.login',email,password,(err,res)=>{
+     if (err) {
+       Bert.alert(err, 'danger', 'growl-top-right');
+       return
+     }          
+     localStorage.setItem('myshowroom',JSON.stringify(res.result))
+     this.props.history.push('/')
+   })
  }
 
  render() {

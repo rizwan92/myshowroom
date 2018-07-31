@@ -149,8 +149,8 @@ export class Customer extends Component {
   }
 }
 
-export default withTracker(() => {
-  const handle = Meteor.subscribe('thisMonthCustomer');
+export default withTracker((props) => {
+  const handle = Meteor.subscribe('thisMonthCustomer',props.credentials.showroomId);
   var startOfMonth = moment().startOf ('month').toDate ();
   var endOfMonth = moment().endOf ('month').toDate ();
   var startOfWeek = moment ().startOf ('week').toDate ();

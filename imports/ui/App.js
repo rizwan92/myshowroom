@@ -10,9 +10,11 @@ import  Track  from './components/track';
 import  ViewJobSheet  from './components/jobsheet/ViewJobSheet';
 import Login from './components/Login/Login';
 import Authentication from './components/Login/Authentication';
+import  Registration  from './components/Login/Registration';
 
 
-const MyRoute = (props)=>{
+
+const MyRoute = ()=>{
   return(
     <Switch>
       <Route exact path='/' component={App} />
@@ -24,6 +26,7 @@ const MyRoute = (props)=>{
       <Route exact path='/newjobsheet/:jobSheetId/:customerId/:type' component={App}/>
       <Route exact path='/viewjobsheet/:jobSheetId' component={App} />
       <Route exact path='/login' component={Login} />
+      <Route exact path='/createshowroom' component={Registration} />
       <Route component={NoMatch} />
     </Switch>
   )
@@ -32,24 +35,29 @@ const MyRoute = (props)=>{
 export class App extends Component {
   render () {
     return (
-      <DashBoardLayout>
-        {(search,changeTitle)=>{
-          return(
-            <Switch>
-              <Authentication>
-                <Route exact path='/' render={(props)=><Track {...props} search={search} changeTitle={changeTitle} />} />
-                <Route exact path='/customer' render={(props)=><Customer {...props} search={search} changeTitle={changeTitle} />} />
-                <Route exact path='/customerform' render={(props)=><CustomerRegistrationForm {...props} search={search} changeTitle={changeTitle} />} />
-                <Route exact path='/customeredit/:id' render={(props)=><CustomerRegistrationForm {...props} search={search} changeTitle={changeTitle} />} />
-                <Route exact path='/jobsheet/' render={(props)=><Jobsheet {...props} search={search} changeTitle={changeTitle} />} />
-                <Route exact path='/createjobsheet' render={(props)=><CreateJobSheet {...props} search={search} changeTitle={changeTitle} />} />
-                <Route exact path='/newjobsheet/:jobSheetId/:customerId/:type' render={(props)=><JobSheetForm {...props} search={search} changeTitle={changeTitle} />}/>
-                <Route exact path='/viewjobsheet/:jobSheetId' render={(props)=><ViewJobSheet {...props} search={search} changeTitle={changeTitle} />} />
-                <Route component={NoMatch} />
-              </Authentication>
-            </Switch>
-          )}}
-      </DashBoardLayout>
+      <Authentication>
+        {
+          (credentials)=>{            
+            return(
+              <DashBoardLayout credentials={credentials}>
+                {(search,changeTitle)=>{
+                  return(
+                    <div>
+                      <Route exact path='/' render={(props)=><Track {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                      <Route exact path='/customer' render={(props)=><Customer {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                      <Route exact path='/customerform' render={(props)=><CustomerRegistrationForm {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                      <Route exact path='/customeredit/:id' render={(props)=><CustomerRegistrationForm {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                      <Route exact path='/jobsheet/' render={(props)=><Jobsheet {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                      <Route exact path='/createjobsheet' render={(props)=><CreateJobSheet {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                      <Route exact path='/newjobsheet/:jobSheetId/:customerId/:type' render={(props)=><JobSheetForm {...props} search={search} changeTitle={changeTitle} credentials={credentials} />}/>
+                      <Route exact path='/viewjobsheet/:jobSheetId' render={(props)=><ViewJobSheet {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                    </div>
+                  )}}
+              </DashBoardLayout>
+            )
+          }
+        }
+      </Authentication>
     );
   }
 }

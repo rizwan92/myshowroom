@@ -28,7 +28,7 @@ export class CreateJobSheet extends Component {
         Tracker.autorun(() => {
           if (value !== '' && value.length >= 3) {
             this.setState({isLoading:true})
-            Meteor.call('customer.bynames','1',value,(err,customers)=>{              
+            Meteor.call('customer.bynames',this.props.credentials.showroomId,value,(err,customers)=>{              
               if (err) {
                 Bert.alert('something went wrong', 'danger', 'growl-top-right');
               }      
@@ -147,7 +147,7 @@ export class CreateJobSheet extends Component {
         Bert.alert('ग्राहक select kare', 'info', 'growl-top-right');
         return
       }      
-      Meteor.call('counter.get','1',(err,res)=>{
+      Meteor.call('counter.get',this.props.credentials.showroomId,(err,res)=>{
         if (err) {
           return
         }

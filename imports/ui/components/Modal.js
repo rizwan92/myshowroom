@@ -21,9 +21,9 @@ export default class Modal extends React.Component {
       width: '100%',
       height: '100%',
       overflow: 'auto',
-      zIndex: 1
+      zIndex: 1,
     };
-
+    
     // default style
     this.style = {
       modal: {
@@ -36,7 +36,7 @@ export default class Modal extends React.Component {
         boxSizing: 'border-box',
         backgroundColor: '#fff',
         margin: '40px auto',
-        borderRadius: 3,
+        borderRadius:20,
         zIndex: 2,
         textAlign: 'left',
         boxShadow: '0 20px 30px rgba(0, 0, 0, 0.2)',

@@ -48,7 +48,7 @@ export class JobSheetForm extends Component {
     let { jobSheetId,customerId,type}  =  this.props.match.params
     let  {oilLabel,airFilter,taped,spark,corborator,clutch,breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt,registrationNumber,hasRun} = this.state
     const jobsheetDetail = {oilLabel,airFilter,taped,spark,corborator,clutch,breake,diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt,registrationNumber,hasRun,jobSheetId,customerId,type}
-    Meteor.call('jobsheet.insert','1',jobsheetDetail,(err,res)=>{
+    Meteor.call('jobsheet.insert',this.props.credentials.showroomId,jobsheetDetail,(err,res)=>{
       if (err) {
         Bert.alert(err, 'danger', 'growl-top-right');
       }

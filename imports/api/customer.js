@@ -59,9 +59,9 @@ if (Meteor.isServer) {
   Meteor.publish('allcustomer', function userPublication() {
     return CustomerApi.find({},{sort: {createdAt: -1},limit:20})
   });
-  Meteor.publish('thisMonthCustomer', function userPublication() {
+  Meteor.publish('thisMonthCustomer', function userPublication(showroomId) {
     var startOfMonth = moment().startOf ('month').toDate ();
-    return CustomerApi.find({ createdAt: {$gte: startOfMonth}},{sort: {createdAt: -1}})      
+    return CustomerApi.find({ showroomId,createdAt: {$gte: startOfMonth}},{sort: {createdAt: -1}})      
   });
   Meteor.methods({
     'customer.bynames'(showroomId,searchValue) {    

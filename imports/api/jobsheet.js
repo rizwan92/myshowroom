@@ -88,7 +88,7 @@ if (Meteor.isServer) {
   Meteor.publish('thisMonthJobSheet', function userPublication(showroomId) {
     var startOfMonth = moment().startOf ('month').toDate ();    
     const pipeline = [
-      { $match : { showroomId : showroomId,createdAt:{$gte: startOfMonth } } },
+      { $match : { showroomId,createdAt:{$gte: startOfMonth } } },
       { $sort : { createdAt : -1 } },
       {
         $lookup:

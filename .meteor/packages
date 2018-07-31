@@ -23,4 +23,5 @@ react-meteor-data
 mongo
 jcbernack:reactive-aggregate
 meteorhacks:aggregate
-u2622:persistent-session
+session
+pauldowman:dotenv

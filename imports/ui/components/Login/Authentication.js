@@ -7,19 +7,23 @@ export class Authentication extends Component {
       myshowroom:null
     }
     componentDidMount = () => {
-      const myshowroom = Session.get('myshowroom')
-      if (myshowroom === undefined || 'undefined') {
-        this.props.history.push('/login')
-      }else{
+      const myshowroom = JSON.parse(localStorage.getItem('myshowroom'))
+      if (myshowroom) {
         this.setState({myshowroom})
+      }else{
+        this.props.history.push('/login')
       }      
     }
-    
     render() {
-      if (this.state.myshowroom === null || undefined || 'undefined' ) {
-        return <h2>Loading...</h2>
+      if(this.state.myshowroom){        
+        return this.props.children(this.state.myshowroom)
+      }else{
+        return (
+          <div>
+            <div className="mdl-spinner mdl-js-spinner is-active myloader"></div>
+          </div>
+        )
       }
-      return this.props.children
     }
 }
 

@@ -28,9 +28,12 @@ export class HomePage extends Component {
     }
   }
 
-  render() {   
-   
-     
+  logout=()=>{
+    localStorage.removeItem('myshowroom')
+    this.props.history.push('/login')
+  }
+
+  render() {       
     return (
       <div>
         <div className="demo-layout mdl-layout  mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header" 
@@ -63,8 +66,8 @@ export class HomePage extends Component {
 
             <header className="demo-drawer-header">
               <img src="http://www.websoftcompany.com/image/user.png" className="demo-avatar" />
-              <span>hello@example.com</span>
-              <span className="mdl-layout-title">Star Auto1</span>
+              <span>{this.props.credentials.showroomEmail}</span>
+              <span className="mdl-layout-title">{this.props.credentials.showroomTitle}</span>
               <div className="mdl-layout-spacer"></div>
             </header>
             <hr />
@@ -93,7 +96,7 @@ export class HomePage extends Component {
               <div className="mdl-layout-spacer" />
               <a
                 className="mdl-navigation__link"
-                onClick={()=>this.navigate('/logout','logout')} 
+                onClick={()=>this.logout()}
               >
                 <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>
                 <span>Logout</span>

@@ -65,7 +65,7 @@ export class CustomerRegistrationForm extends Component {
   }
   
   
-  render() {
+  render() {    
     const id = this.props.match.params.id
     return (
       <div>
@@ -189,7 +189,7 @@ export class CustomerRegistrationForm extends Component {
 
 
     let customer ={
-      showroomId:'1',
+      showroomId:this.props.credentials.showroomId,
       customerName,customerNumber,customerEmail,
       customerAddress,hpd,
       vehicleModel,vehicleColor,vehicleKeyNumber,
@@ -235,7 +235,7 @@ export class CustomerRegistrationForm extends Component {
     if (vehicleSoldDealer===''){ this.showSnackBar('सोल्ड डीलर लिखे'); return false}
 
     let customer ={
-      showroomId:1,
+      showroomId:this.props.credentials.showroomId,
       customerName,customerNumber,customerEmail,
       customerAddress,hpd,
       vehicleModel,vehicleColor,vehicleKeyNumber,
