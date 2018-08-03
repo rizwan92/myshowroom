@@ -68,11 +68,11 @@ render() {
   const { customer } = this.props.jobsheet
   return (
     <div>
-      <div className="mdl-card mdl-shadow--2dp" style={styles.container}>
+      <div className="mdl-shadow--2dp" style={styles.container}>
         <div  style={{width:'100%',display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
           <div style={{flex:1,minWidth:300}}>
             <div className="mdl-card__title mdl-card--expand">
-              <div style={{display:'flex',flexDirection:'column'}}>
+              <div style={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
                 <div className="" style={{...styles.cardrow,justifyContent:'flex-start'}}><div style={{...styles.idnumber}}>{this.props.jobsheet.jobSheetId}</div></div>
                 <div style={styles.cardrow}><i className="material-icons">phone</i>  <div style={styles.margin}>{customer.customerNumber}</div></div>
                 <div style={styles.cardrow}><i className="material-icons">email</i>  <div style={styles.margin}>{customer.customerEmail}</div></div>
@@ -82,7 +82,6 @@ render() {
               </div>
             </div>
           </div>
-          <div style={{flex:1,minWidth:300}}></div>
           <div style={{flex:1,minWidth:300,display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
             <select className="mdl-textfield__input" style={{width:200}} value={this.state.select} onChange={(e)=>this.selectOnChange(e.target.value)}>
               <option value={0}>Select</option>
@@ -186,8 +185,8 @@ export default TrackBox
 
 const styles ={
   container:{
-    width:'100%',display:'flex',flexDirection:'column',
-    background:'#FFC107',margin:10
+    display:'flex',flexDirection:'column',
+    background:'white',
   },
   cardrow:{
     display:'flex',

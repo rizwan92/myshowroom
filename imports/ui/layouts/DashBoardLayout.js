@@ -62,17 +62,16 @@ export class HomePage extends Component {
               </div>
             </div>
           </header>
-          <div className="demo-drawer mdl-layout__drawer">
+          <div className="mdl-layout__drawer" >
 
-            <header className="demo-drawer-header">
+            <header className="mdl-color--primary mdl-color-text--white" style={{display:'flex',flexDirection:'column',padding:10}} >
               <img src="http://www.websoftcompany.com/image/user.png" className="demo-avatar" />
               <span>{this.props.credentials.showroomEmail}</span>
               <span className="mdl-layout-title">{this.props.credentials.showroomTitle}</span>
               <div className="mdl-layout-spacer"></div>
             </header>
-            <hr />
             <nav
-              className={'demo-navigation mdl-navigation mdl-color--black-grey-800'}>
+              className={'demo-navigation mdl-navigation'} >
               <a className="mdl-navigation__link" onClick={()=>this.navigate('/','Track')} style={{fontSize:13}} >
                 <i className="mdl-color-text--blue-grey-400 material-icons" style={{fontSize:23}} role="presentation">adjust</i>
                  Track
@@ -103,7 +102,7 @@ export class HomePage extends Component {
               </a>
             </nav>
           </div>
-          <main className="mdl-layout__content">
+          <main className="mdl-layout__content" >
             {this.props.children(this.state.search,this.changeTitle)}
           </main>
         </div>

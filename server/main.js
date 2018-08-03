@@ -6,5 +6,4 @@ import '../imports/api/showroom';
 
 Meteor.startup(() => {  
   // code to run on server at startup
- 
 })

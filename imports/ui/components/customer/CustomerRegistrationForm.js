@@ -68,7 +68,7 @@ export class CustomerRegistrationForm extends Component {
   render() {    
     const id = this.props.match.params.id
     return (
-      <div>
+      <div className="mdl-shadow--2dp" style={{backgroundColor:'white',margin:20}} >
         { id  === undefined ?   null 
           :
           <i className="material-icons" style={{fontSize:50}} onClick={()=> this.props.history.goBack()}>keyboard_backspace</i> 

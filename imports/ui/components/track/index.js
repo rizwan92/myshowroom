@@ -52,6 +52,7 @@ export class Track extends Component {
         </div>
       )
     }  
+    
    
     return (
       <div>
@@ -70,13 +71,15 @@ export class Track extends Component {
             </select>
           </div>
         </div>
-        {
-          this.props.jobsheet.map((job,i)=>{
-            return (
-              <TrackBox number={i} jobsheet={job}  key={i}/>
-            )
-          })
-        }
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',flex:'1',alignItems:'center'}}>
+          {
+            this.props.jobsheet.map((job,i)=>{
+              return (
+                <TrackBox number={i} jobsheet={job}  key={i} credentials={this.props.credentials}/>
+              )
+            })
+          }
+        </div>
         <button style={{position:'fixed',bottom:20,right:20,zIndex:10}}
           className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
           id="customerfilter"

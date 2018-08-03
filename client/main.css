@@ -1,35 +1,15 @@
 html,
 body {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
+  font-family: 'Open-Sans-600', 'Roboto', 'Helvetica', sans-serif;
+  font-style: normal;
+  padding: 0;
+  margin: 0;
 }
 .demo-avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   cursor: pointer;
-}
-
-.demo-layout {
-  color: rgba(0, 0, 0, 0.54);
-}
-.mdl-layout__drawer .avatar {
-  margin-bottom: 16px;
-}
-.demo-drawer {
-  border: none;
-}
-/* iOS Safari specific workaround */
-.demo-drawer .mdl-menu__container {
-  z-index: -1;
-}
-.demo-drawer .demo-navigation {
-  z-index: -2;
-  color: #fff;
-}
-/* END iOS Safari specific workaround */
-.demo-drawer .mdl-menu .mdl-menu__item {
-  display: flex;
-  align-items: center;
 }
 .demo-drawer-header {
   box-sizing: border-box;
@@ -39,26 +19,22 @@ body {
   padding: 16px;
   margin-left: 10px;
 }
-.demo-avatar-dropdown {
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-}
 
 .demo-navigation {
   flex-grow: 1;
+  background: 0;
 }
-.demo-layout .demo-navigation .mdl-navigation__link {
+.mdl-navigation__link {
   display: flex;
   flex-direction: row;
   align-items: center;
   color: black !important;
   font-weight: 500;
+  border-bottom: 1px solid #dfdfdf;
 }
-.demo-layout .demo-navigation .mdl-navigation__link:hover {
-  color: #37474f;
+.mdl-navigation__link:hover {
+  background: #f5f7f7 !important;
+  color: #5f6876 !important;
   cursor: pointer !important;
 }
 .demo-navigation .mdl-navigation__link .material-icons {
@@ -67,9 +43,21 @@ body {
   margin-right: 32px;
 }
 
+.mdl-layout__content {
+  background-color: #efefef;
+}
+
 .demo-cards {
   align-items: flex-start;
   align-content: flex-start;
+}
+
+.switch-wrapper {
+  transition: all ease-out;
+}
+
+.switch-wrapper > div {
+  transition: all ease-out;
 }
 
 .demo-cards .mdl-card__title.mdl-card__title {
@@ -94,22 +82,6 @@ body {
   text-decoration: none;
 }
 
-.demo-options h3 {
-  margin: 0;
-}
-.demo-options .mdl-checkbox__box-outline {
-  border-color: rgba(255, 255, 255, 0.89);
-}
-.demo-options ul {
-  margin: 0;
-  list-style-type: none;
-}
-.demo-options li {
-  margin: 4px 0;
-}
-.demo-options .material-icons {
-  color: rgba(255, 255, 255, 0.89);
-}
 .demo-options .mdl-card__actions {
   height: 64px;
   display: flex;
