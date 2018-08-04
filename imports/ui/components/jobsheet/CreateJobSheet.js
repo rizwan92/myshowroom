@@ -3,7 +3,7 @@ import Autocomplete from 'react-autocomplete'
 import { Tracker } from 'meteor/tracker'
 import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom'
-import JobSheetTable1 from './JobSheetTable.1';
+import JobSheetTable from './JobSheetTable';
 /*global  Bert:true componentHandler:true*/
 export class CreateJobSheet extends Component {
     state={
@@ -75,70 +75,73 @@ export class CreateJobSheet extends Component {
           >
           keyboard_backspace
           </i>
-          <center>
-            <h6 style={{color:'black'}}></h6>
-            <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-              <Autocomplete
-                getItemValue={(item) => {
-                  return JSON.stringify(item)
-                }}
-                menuStyle={{...styles.menuStyle}}
-                items={this.state.items}
-                renderItem={(item, isHighlighted) =>{
-                  return (<div className="serachtextfield" key={item._id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-                    {item.customerName}
-                  </div>)
-                }}
-                value={this.state.search}
-                onChange={(e) =>this.autoCompleteOnChange(e.target.value)}
-                onSelect={(val) =>{
-                  this.setState({customer:JSON.parse(val)})
-                }}
+          <div style={{display:'flex',justifyContent:'center'}}>
+            <div style={{display:'flex',justifyContent:'center',width:'70%',padding:20,backgroundColor:'#fff',borderRadius:10}} className="mdl-shadow--2dp">
+              <center>
+                <h6 style={{color:'black'}}></h6>
+                <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                  <Autocomplete
+                    getItemValue={(item) => {
+                      return JSON.stringify(item)
+                    }}
+                    menuStyle={{...styles.menuStyle}}
+                    items={this.state.items}
+                    renderItem={(item, isHighlighted) =>{
+                      return (<div className="serachtextfield" key={item._id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+                        {item.customerName}
+                      </div>)
+                    }}
+                    value={this.state.search}
+                    onChange={(e) =>this.autoCompleteOnChange(e.target.value)}
+                    onSelect={(val) =>{
+                      this.setState({customer:JSON.parse(val)})
+                    }}
           
-                inputProps={{className:'mdl-textfield__input',placeholder:'Search Customer',
-                  style:{fontSize:19,}}}
-              />
-              {this.state.isLoading ?
-                <div className="mdl-spinner mdl-js-spinner is-active mdl-js-progress" ></div>
-                :
-                <i className="material-icons">search</i>
-              }
-
-            </div>
-            <br />
-            <br />
-            <br />
-
-            {
-              this.state.customer === null ? null :
-                <div>
-                  {
-
-                    jobsheets.length === 0 ? <h6>No Record Found</h6> :
-                      <JobSheetTable1 jobsheets={jobsheets}/>
+                    inputProps={{className:'mdl-textfield__input',placeholder:'Search Customer',
+                      style:{fontSize:19,}}}
+                  />
+                  {this.state.isLoading ?
+                    <div className="mdl-spinner mdl-js-spinner is-active mdl-js-progress" ></div>
+                    :
+                    <i className="material-icons">search</i>
                   }
-                </div>
-            }
-            <br />
-            <label style={{marginRight:10}} className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1">
-              <input type="radio" id="option-1" onChange={()=>this.setState({type:'free'})}
-                className="mdl-radio__button" name="options" value="1" checked={this.state.type == 'free'}/>
-              <span className="mdl-radio__label">Free</span>
-            </label>
-            <label style={{marginRight:10}} className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-2">
-              <input type="radio" id="option-2"  onChange={()=>this.setState({type:'paid'})}
-                className="mdl-radio__button" name="options" value="2" checked={this.state.type == 'paid'}/>
-              <span className="mdl-radio__label">Paid</span>
-            </label>
-            <br />
-            <br />
-            <button onClick={()=>this.createJobSheet()}
-              style={{marginTop:20,width:200}}
-              className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                  Create Job Sheet
-            </button>
 
-          </center>
+                </div>
+                <br />
+                <br />
+                <br />
+
+                {
+                  this.state.customer === null ? null :
+                    <div>
+                      {
+
+                        jobsheets.length === 0 ? <h6>No Record Found</h6> :
+                          <JobSheetTable jobsheets={jobsheets} delete={false}/>
+                      }
+                    </div>
+                }
+                <br />
+                <label style={{marginRight:10}} className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1">
+                  <input type="radio" id="option-1" onChange={()=>this.setState({type:'free'})}
+                    className="mdl-radio__button" name="options" value="1" checked={this.state.type == 'free'}/>
+                  <span className="mdl-radio__label">Free</span>
+                </label>
+                <label style={{marginRight:10}} className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-2">
+                  <input type="radio" id="option-2"  onChange={()=>this.setState({type:'paid'})}
+                    className="mdl-radio__button" name="options" value="2" checked={this.state.type == 'paid'}/>
+                  <span className="mdl-radio__label">Paid</span>
+                </label>
+                <br />
+                <br />
+                <button onClick={()=>this.createJobSheet()}
+                  style={{marginTop:20,width:200}}
+                  className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                  Create Job Sheet
+                </button>
+              </center>
+            </div>
+          </div>
         </div>
       )
     }

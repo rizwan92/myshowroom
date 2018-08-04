@@ -86,7 +86,7 @@ export class JobSheetForm extends Component {
     let { oilLabel,airFilter,taped,spark,corborator,clutch,breake,
       diveChain,battery,fuel,electrical,cabel,nutBolt} = this.state   
     return (
-      <div>
+      <div >
         <i
           className="material-icons"
           style={{ cursor: 'pointer', fontSize: 50,margin:10 }}

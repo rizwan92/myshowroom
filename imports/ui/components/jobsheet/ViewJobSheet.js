@@ -36,15 +36,17 @@ export class ViewJobSheet extends Component {
       let jobsheetDetail = this.state.jobsheetDetail
       let customerDetail = this.state.customerDetail
       return (
-        <div>
+        <div style={{backgroundColor:'#fff',display:'flex',justifyContent:'center',padding:5}}>
           <i
             className="material-icons"
-            style={{ cursor: 'pointer', fontSize: 50,margin:10 }}
+            style={{ cursor: 'pointer', fontSize: 50,margin:10}}
             onClick={() => this.props.history.goBack()}
           >
           keyboard_backspace
           </i>
-          <PrintJobSheet  customerDetail={customerDetail} jobsheetDetail={jobsheetDetail} />
+          <div >
+            <PrintJobSheet  customerDetail={customerDetail} jobsheetDetail={jobsheetDetail} />
+          </div>
         </div>
       )
     }

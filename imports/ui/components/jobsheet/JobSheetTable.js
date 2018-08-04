@@ -28,7 +28,7 @@ export class JobSheetTable extends Component {
                   <td>{jobsheet.customer.vehicleModel}</td>
                   <td>{jobsheet.customer.vehicleColor}</td>
                   <td><i className="material-icons" style={{color:'blue'}}  onClick={()=>this.viewJobSheet(jobsheet)}>remove_red_eye</i></td>
-                  <td><i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteJobsheet(jobsheet._id)}>delete</i></td>
+                  {this.props.delete ? <td><i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteJobsheet(jobsheet._id)}>delete</i></td>: null}
                 </tr>
               ) 
             })

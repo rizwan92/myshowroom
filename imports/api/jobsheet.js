@@ -5,7 +5,7 @@ import {CounterApi} from './counter';
 import {ReactiveAggregate} from 'meteor/jcbernack:reactive-aggregate';
 export const JobSheetApi = new Mongo.Collection ('jobsheets');
 import {HTTP} from 'meteor/http';
-
+import { SMSApi } from './sms'
 
 Meteor.methods ({
   'jobsheet.insert' (showroomId, jobSheet) {
@@ -133,10 +133,10 @@ if (Meteor.isServer) {
 
 if(Meteor.isServer){
   Meteor.methods({
-    'jobsheet.update' (jobid, track) {
+    'jobsheet.update' (showroomId,jobid, track) {        
       return new Promise((resolve,reject)=>{
         if (track.progress === 25) {
-          sendSMS(track.sendSms1).then((result)=>{
+          sendSMS(showroomId,track.sendSms1).then((result)=>{
             if (result) {
               const jobsheet = JobSheetApi.update ({_id: jobid},{$set: {track}});
               resolve(jobsheet)
@@ -146,7 +146,7 @@ if(Meteor.isServer){
           });
         }
         if (track.progress === 50) {
-          sendSMS (track.sendSms2).then((result)=>{
+          sendSMS (showroomId,track.sendSms2).then((result)=>{
             if (result) {
               const jobsheet = JobSheetApi.update ({_id: jobid},{$set: {track}});
               resolve(jobsheet)
@@ -170,7 +170,7 @@ function getMonthDateRange (year, month) {
   var endDate = moment (startDate).endOf ('month');
   return {start: startDate.toDate (), end: endDate.toDate ()};
 }
-function sendSMS (smsData) {
+function sendSMS (showroomId,smsData) {
   return new Promise((resolve,reject)=>{
     const data = {
       sender: 'SHOWRM',
@@ -194,12 +194,19 @@ function sendSMS (smsData) {
           'authkey': '229016ApongwSdxCiX5b5fe269',
         },
       },
-      (err, result) => {
-        console.log(result);
+      (err, result) => { 
         if (err) {
           resolve(false)
         }
         if (result) {
+          SMSApi.insert({
+            showroomId,
+            statusCode:result.statusCode,
+            message:result.data.message,
+            type:result.data.type,
+            status: 1,
+            createdAt: new Date (),
+          });
           resolve(true)
         }else {
           resolve(false)

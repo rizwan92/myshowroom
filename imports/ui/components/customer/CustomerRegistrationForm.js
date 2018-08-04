@@ -68,97 +68,99 @@ export class CustomerRegistrationForm extends Component {
   render() {    
     const id = this.props.match.params.id
     return (
-      <div className="mdl-shadow--2dp" style={{backgroundColor:'white',margin:20}} >
-        { id  === undefined ?   null 
-          :
-          <i className="material-icons" style={{fontSize:50}} onClick={()=> this.props.history.goBack()}>keyboard_backspace</i> 
-        }
-        <center>
-          { id  === undefined ?  null : <h6 >Edit Customer</h6>}
-          <form id="customerRegistrationForm" className="myform" onSubmit={id === undefined ? (e)=>this.onSubmit(e) : (e)=>this.onUpdate(e)}
-            style={{padding:'0.9rem'}}>
-            <h6 style={{textAlign:'center',color:'black'}}>Customer Detail</h6> 
-            <div className='mysubform'> 
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="text" id="customerName" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.customerName}/>
-                <label className="mdl-textfield__label" htmlFor="customerName"> Name</label>
+      <div style={{display:'flex',justifyContent:'center'}}>
+        <div className="mdl-shadow--2dp" style={{backgroundColor:'white',width:'80%',marginTop:20}} >
+          { id  === undefined ?   null 
+            :
+            <i className="material-icons" style={{fontSize:50,color:'#000'}} onClick={()=> this.props.history.goBack()}>keyboard_backspace</i> 
+          }
+          <center>
+            { id  === undefined ?  null : <h6>Edit Customer</h6>}
+            <form id="customerRegistrationForm" className="myform" onSubmit={id === undefined ? (e)=>this.onSubmit(e) : (e)=>this.onUpdate(e)}
+              style={{padding:'0.9rem'}}>
+              <h6 style={{textAlign:'center',color:'black'}}>Customer Detail</h6> 
+              <div className='mysubform'> 
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="text" id="customerName" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.customerName}/>
+                  <label className="mdl-textfield__label" htmlFor="customerName"> Name</label>
+                </div>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="number" id="customerNumber" 
+                    onChange={(e)=> this.onChange(e)}  value={this.state.customerNumber} />
+                  <label className="mdl-textfield__label" htmlFor="customerNumber">Mobile Number</label>
+                </div>
               </div>
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="number" id="customerNumber" 
-                  onChange={(e)=> this.onChange(e)}  value={this.state.customerNumber} />
-                <label className="mdl-textfield__label" htmlFor="customerNumber">Mobile Number</label>
-              </div>
-            </div>
 
-            <div className='mysubform'> 
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="email" id="customerEmail" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.customerEmail} />
-                <label className="mdl-textfield__label" htmlFor="customerEmail">Email</label>
-              </div>
+              <div className='mysubform'> 
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="email" id="customerEmail" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.customerEmail} />
+                  <label className="mdl-textfield__label" htmlFor="customerEmail">Email</label>
+                </div>
   
-              <label className="" htmlFor="hpd"
-                style={{width:300}}>
-                <span className="mdl-checkbox__label">हीरो  पासपोर्ट धारक ?</span>
-                <input type="checkbox" id="hpd" className="mdl-checkbox__input mdl-checkbox" 
-                  checked={this.state.hpd}  onChange={()=> this.setState({hpd:!this.state.hpd})}/>
-              </label>
-            </div>
-            <div className="mdl-textfield mdl-js-textfield">
-              <textarea className="mdl-textfield__input" type="text" rows= "2" 
-                onChange={(e)=> this.onChange(e)} value={this.state.customerAddress}  id="customerAddress" ></textarea>
-              <label className="mdl-textfield__label" htmlFor="customerAddress">Address</label>
-            </div>
-            <h6 style={{textAlign:'center',color:'black'}}>Vehicle Detail </h6> 
-            <div className='mysubform'> 
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="text" id="vehicleModel" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.vehicleModel}/>
+                <label className="" htmlFor="hpd"
+                  style={{width:300}}>
+                  <span className="mdl-checkbox__label">हीरो  पासपोर्ट धारक ?</span>
+                  <input type="checkbox" id="hpd" className="mdl-checkbox__input mdl-checkbox" 
+                    checked={this.state.hpd}  onChange={()=> this.setState({hpd:!this.state.hpd})}/>
+                </label>
+              </div>
+              <div className="mdl-textfield mdl-js-textfield">
+                <textarea className="mdl-textfield__input" type="text" rows= "2" 
+                  onChange={(e)=> this.onChange(e)} value={this.state.customerAddress}  id="customerAddress" ></textarea>
+                <label className="mdl-textfield__label" htmlFor="customerAddress">Address</label>
+              </div>
+              <h6 style={{textAlign:'center',color:'black'}}>Vehicle Detail </h6> 
+              <div className='mysubform'> 
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="text" id="vehicleModel" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.vehicleModel}/>
               
-                <label className="mdl-textfield__label" htmlFor="vehicleModel">Model Number</label>
-              </div>
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="text" id="vehicleColor" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.vehicleColor}/>
-                <label className="mdl-textfield__label" htmlFor="vehicleColor">Color </label>
-              </div>
-            </div>
-
-            <div className='mysubform'> 
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="text" id="vehicleKeyNumber" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.vehicleKeyNumber}/>
-                <label className="mdl-textfield__label" htmlFor="vehicleKeyNumber">Key Number</label>
+                  <label className="mdl-textfield__label" htmlFor="vehicleModel">Model Number</label>
+                </div>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="text" id="vehicleColor" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.vehicleColor}/>
+                  <label className="mdl-textfield__label" htmlFor="vehicleColor">Color </label>
+                </div>
               </div>
 
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="text" id="vehicleEngineNumber" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.vehicleEngineNumber}/>
-                <label className="mdl-textfield__label" htmlFor="vehicleEngineNumber">Engine Number</label>
-              </div>
-            </div>
+              <div className='mysubform'> 
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="text" id="vehicleKeyNumber" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.vehicleKeyNumber}/>
+                  <label className="mdl-textfield__label" htmlFor="vehicleKeyNumber">Key Number</label>
+                </div>
 
-            <div className='mysubform'> 
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="text" id="vehicleChassisNumber" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.vehicleChassisNumber}/>
-                <label className="mdl-textfield__label" htmlFor="vehicleChassisNumber">Chessis Number</label>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="text" id="vehicleEngineNumber" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.vehicleEngineNumber}/>
+                  <label className="mdl-textfield__label" htmlFor="vehicleEngineNumber">Engine Number</label>
+                </div>
               </div>
-              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input className="mdl-textfield__input myinput" type="text" id="vehicleSoldDealer" 
-                  onChange={(e)=> this.onChange(e)} value={this.state.vehicleSoldDealer}/>
-                <label className="mdl-textfield__label" htmlFor="vehicleSoldDealer">Sold Dealer</label>
-              </div>
-            </div>
 
-            <button type="submit"
-              style={{marginTop:20,width:300}}
-              className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              <div className='mysubform'> 
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="text" id="vehicleChassisNumber" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.vehicleChassisNumber}/>
+                  <label className="mdl-textfield__label" htmlFor="vehicleChassisNumber">Chessis Number</label>
+                </div>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="text" id="vehicleSoldDealer" 
+                    onChange={(e)=> this.onChange(e)} value={this.state.vehicleSoldDealer}/>
+                  <label className="mdl-textfield__label" htmlFor="vehicleSoldDealer">Sold Dealer</label>
+                </div>
+              </div>
+
+              <button type="submit"
+                style={{marginTop:20,width:300}}
+                className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                   save
-            </button>
-          </form>
-        </center>
+              </button>
+            </form>
+          </center>
+        </div>
       </div>
     )
   }

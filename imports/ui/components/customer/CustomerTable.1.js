@@ -19,40 +19,81 @@ export default withRouter(CustomerTable1)
 
 
 class ForWeb extends Component {
-  render() {
+
+
+  onChange=(value,id)=>{    
+    if (value == 0) {
+      this.showSnackBar('Please Select');
+      return;
+    }
+    if (value ==1) {
+      this.props.history.push(`/customeredit/${id}`)
+    }
+    if (value == 2) {
+      this.deleteCustomer(id)
+    }
+  }
+  render() {    
     return (
-      <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
-        {
-          this.props.customers.map((customer,i)=>{
-            return(
-              <div className="mdl-card mdl-shadow--2dp demo-card-square" key={i}>
-                <div className="mdl-card__title mdl-card--expand" style={{background:'#ff9800'}}>
-                  <div style={{display:'flex',flexDirection:'column'}}>
-                    <div style={styles.cardrow}><i className="material-icons">phone</i>  <div style={styles.margin}>{customer.customerNumber}</div></div>
-                    <div style={styles.cardrow}><i className="material-icons">email</i>  <div style={styles.margin}>{customer.customerEmail}</div></div>
-                    <div style={styles.cardrow}><i className="material-icons">settings</i>  <div style={styles.margin}>{customer.vehicleModel}</div></div>
-                    <div style={styles.cardrow}><i className="material-icons">invert_colors</i>  <div style={styles.margin}>{customer.vehicleColor}</div></div>
-                    <div style={styles.cardrow}><i className="material-icons">date_range</i>  <div style={styles.margin}>{  moment(customer.createdAt).format('DD-MM-YYYY')}</div></div>
-                  </div>
-                </div>
-                <div className="mdl-card__supporting-text">
-                  <div className="mdl-card__title-text">
-                    <div style={styles.cardrow}><i className="material-icons">perm_identity</i>  <div style={styles.margin}>{customer.customerName}</div></div>
-                  </div>   
-                </div>
-                <div className="mdl-card__actions mdl-card--border">
-                  <a className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-                    style={{color:'blue'}} onClick={()=>this.props.history.push(`/customeredit/${customer._id}`)}>
-                    Details
-                  </a>
-                  <div className="mdl-card__menu">
-                    <i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteCustomer(customer._id)}>delete</i>
-                  </div>
-                </div>
-              </div>
-            )
-          })
-        }
+      <div className="container projects">
+        <div className="projects-inner">
+          <header className="projects-header">
+            <div className="title">Customer Details</div>
+            <div className="count">| 32 customer this month</div>
+            <span className="glyphicon glyphicon-download-alt" />
+          </header>
+          <table className="projects-table">
+            <thead>
+              <tr>
+                <th>Customer </th>
+                <th>Mobile Number/Email</th>
+                <th>Vehicle Detail</th>
+                <th>Details</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.props.customers.map((customer,i)=>{
+                  return(
+                    <tr className="danger-item" key={i}>
+                      <td>
+                        <p style={{color:'white',fontSize:15}}>{customer.customerName}</p>
+                        <p>{moment(customer.createdAt).format('DD-MM-YYYY')+' / '+moment(customer.createdAt).format('hh-mm')}</p>
+                      </td>
+                      <td>
+                        <p>{customer.customerNumber}</p>
+                        <p className="danger-text">{customer.customerEmail}</p>
+                      </td>
+                      <td className="member">
+                        {/* <figure>
+                          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png" />
+                        </figure> */}
+                        <div className="member-info">
+                          <p>{customer.vehicleModel}</p>
+                          <p>{customer.vehicleColor}</p>
+                        </div>
+                      </td>
+                      <td>
+                        <p>{customer.vehicleChassisNumber}</p>
+                        <p>{customer.vehicleEngineNumber}</p>
+                      </td>
+                      <td className="status">
+                        <select className="action-box" onChange={(e)=>this.onChange(e.target.value,customer._id)}>
+                          <option value={0}>Actions</option>
+                          <option value={1}>Edit</option>
+                          <option value={2}>Delete</option>
+                        </select>
+                      </td>
+                    </tr>
+                  )
+                })
+              }
+             
+
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }
@@ -69,6 +110,57 @@ class ForWeb extends Component {
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
 }
+// class ForWeb extends Component {
+//   render() {
+//     return (
+//       <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
+//         {
+//           this.props.customers.map((customer,i)=>{
+//             return(
+//               <div className="mdl-card mdl-shadow--2dp demo-card-square" key={i}>
+//                 <div className="mdl-card__title mdl-card--expand" style={{background:'#ff9800'}}>
+//                   <div style={{display:'flex',flexDirection:'column'}}>
+//                     <div style={styles.cardrow}><i className="material-icons">phone</i>  <div style={styles.margin}>{customer.customerNumber}</div></div>
+//                     <div style={styles.cardrow}><i className="material-icons">email</i>  <div style={styles.margin}>{customer.customerEmail}</div></div>
+//                     <div style={styles.cardrow}><i className="material-icons">settings</i>  <div style={styles.margin}>{customer.vehicleModel}</div></div>
+//                     <div style={styles.cardrow}><i className="material-icons">invert_colors</i>  <div style={styles.margin}>{customer.vehicleColor}</div></div>
+//                     <div style={styles.cardrow}><i className="material-icons">date_range</i>  <div style={styles.margin}>{  moment(customer.createdAt).format('DD-MM-YYYY')}</div></div>
+//                   </div>
+//                 </div>
+//                 <div className="mdl-card__supporting-text">
+//                   <div className="mdl-card__title-text">
+//                     <div style={styles.cardrow}><i className="material-icons">perm_identity</i>  <div style={styles.margin}>{customer.customerName}</div></div>
+//                   </div>   
+//                 </div>
+//                 <div className="mdl-card__actions mdl-card--border">
+//                   <a className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+//                     style={{color:'blue'}} onClick={()=>this.props.history.push(`/customeredit/${customer._id}`)}>
+//                     Details
+//                   </a>
+//                   <div className="mdl-card__menu">
+//                     <i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteCustomer(customer._id)}>delete</i>
+//                   </div>
+//                 </div>
+//               </div>
+//             )
+//           })
+//         }
+//       </div>
+//     )
+//   }
+//   deleteCustomer =(id)=>{
+//     let result = confirm('Want to delete?');
+//     if (result) {
+//       this.showSnackBar('Successfully Deleted')
+//       Meteor.call('customer.remove',id);
+//     }
+//   }
+//   showSnackBar(msg){
+//     var snackbarContainer = document.querySelector('#demo-toast-example');
+//     var data = {message: msg};
+//     snackbarContainer.MaterialSnackbar.showSnackbar(data);
+//   }
+// }
 
 
 

@@ -15,7 +15,7 @@ import Modal from '../Modal';
 export class JobSheet extends Component {
   state={
     tab:1,
-    toggle:false,
+    toggle:true,
     isModalOpen:false
   }
 
@@ -95,17 +95,17 @@ export class JobSheet extends Component {
             <div>This Day</div>
             <div>{thisDayCount}</div>
           </div>
-          <div className="demo-card-wide mdl-shadow--2dp"  
+          {/* <div className="demo-card-wide mdl-shadow--2dp"  
             style={styles.toggle}>
             <label className="mdl-switch mdl-js-switch mdl-js-ripple-effect"  htmlFor="switch-1">
               <input type="checkbox" id="switch-1" className="mdl-switch__input" checked={this.state.toggle} onChange={()=>this.handleToggle()}/>
               <span className="mdl-switch__label"></span>
             </label>
-          </div>
+          </div> */}
         </div>
         {this.state.toggle ? 
           <div>
-            {jobsheet.length === 0 ? <h6>No Records Available</h6> : <JobSheetTable jobsheets={jobsheet} />}
+            {jobsheet.length === 0 ? <h6>No Records Available</h6> : <JobSheetTable jobsheets={jobsheet} delete={true}/>}
           </div>
           :  
           <div>

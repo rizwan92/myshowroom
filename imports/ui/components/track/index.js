@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import {  JobSheetApi } from '../../../api/jobsheet';
 import { withRouter } from 'react-router-dom'
 import './track.css'
-import  TrackBox  from './TrackBox';
+import  TrackBox1  from './TrackBox1';
 import Modal from '../Modal';
 export class Track extends Component {
   
@@ -33,16 +33,6 @@ export class Track extends Component {
     var data = {message: msg};
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
-  
-  // handleBackButton=(event)=>{
-  //   event.preventDefault();
-  //   event.stopPropagation();        
-  //   if (this.state.isModalOpen) { 
-  //     this.closeModal()
-  //   }else{
-  //     this.props.history.goBack()
-  //   }
-  // }
 
   render() {
     if (!this.props.loading) {
@@ -57,28 +47,50 @@ export class Track extends Component {
     return (
       <div>
         <h6></h6>
-        <div style={{display:'flex',flex:1,justifyContent:'flex-end'}} >
-          <div className="demo-card-wide mdl-shadow--2dp" id="customerselect" >
-            <select className="mdl-textfield__input"  value={this.state.select} onChange={(e)=>this.selectOnChange(e.target.value)}>
-              <option value={0}>Select Month </option>
-              {
-                data.map((d,i)=>{
-                  return(
-                    <option value={d.text} key={i}>{d.text}</option>
-                  )
-                })
-              }
-            </select>
-          </div>
-        </div>
+      
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',flex:'1',alignItems:'center'}}>
-          {
-            this.props.jobsheet.map((job,i)=>{
-              return (
-                <TrackBox number={i} jobsheet={job}  key={i} credentials={this.props.credentials}/>
-              )
-            })
-          }
+          <div className="container projects">
+            <div className="projects-inner">
+              <header className="projects-header">
+                <div className="title">Customer Details</div>
+                <div className="count">| 32 customer this month</div>
+                <span className="glyphicon glyphicon-download-alt" />
+                <div style={{display:'flex',flex:1,justifyContent:'flex-end'}} >
+                  <div className=" mdl-shadow--2dp" id="customerselect" style={{backgroundColor:'white',color:'black'}} >
+                    <select className="mdl-textfield__input"  value={this.state.select} onChange={(e)=>this.selectOnChange(e.target.value)}>
+                      <option value={0}>Select Month </option>
+                      {
+                        data.map((d,i)=>{
+                          return(
+                            <option value={d.text} key={i}>{d.text}</option>
+                          )
+                        })
+                      }
+                    </select>
+                  </div>
+                </div>
+              </header>
+              <table className="projects-table">
+                <thead>
+                  <tr>
+                    <th>Customer Detail</th>
+                    <th>Mobile Number/Email</th>
+                    <th>Vehicle</th>
+                    <th>Jobsheet Details</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  {this.props.jobsheets.map((jobsheet,i)=>{
+                    return(
+                      <TrackBox1 key={i} jobsheet={jobsheet} showroomId={this.props.credentials.showroomId}/>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <button style={{position:'fixed',bottom:20,right:20,zIndex:10}}
           className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
@@ -121,7 +133,7 @@ export default withTracker((props) => {
   let numberOfDays = localStorage.getItem('numberOfDays') === null ? 45 : localStorage.getItem('numberOfDays')  
   const handle = Meteor.subscribe('thisMonthTrackJobSheet',props.credentials.showroomId,numberOfDays)
   return {
-    jobsheet:JobSheetApi.find({}).fetch(),
+    jobsheets:JobSheetApi.find({}).fetch(),
     loading:handle.ready()
   };
 })(withRouter (Track));
