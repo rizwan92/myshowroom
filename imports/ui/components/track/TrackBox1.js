@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Meteor } from 'meteor/meteor'
+import { withRouter } from 'react-router-dom'
 /*jshint esversion: 6 */
 /*global  componentHandler:true */
 export class TrackBox extends Component {
@@ -16,7 +17,8 @@ export class TrackBox extends Component {
       complete:null,
       progress:0,
       status:'Not Tracking',
-      message:'serverving karalo bhai'
+      message:`प्रिय ग्राहक ${this.props.jobsheet.customer.customerName}, यह संदेश आपको याद दिलाने के लिए है के आपके गाड़ी ${this.props.jobsheet.customer.vehicleModel} जिसकी अंतिम सर्विसिंग ${moment(this.props.jobsheet.createdAt).format('DD-MM-YYYY')} को  हुई थी, उसकी सर्विसिंग के लिए कृपया ${this.props.credentials.showroomName} में संपर्क करे|`
+      // message:`Dear ${this.props.jobsheet.customer.customerName}, this message is to remind you servicing of your vehicle is due <date>. If you need any assistance with servicing please call on <Mobile number>. Book your slots today and avoid the rush! `
     }
 makeProgress =(progress)=>{  
   let element  = document.getElementById(`#progress${this.props.number}`)
@@ -78,13 +80,14 @@ onSubmit = ()=>{
     this.makeProgress(0)
   }
 }
-render() {    
+render() {  
   const { customer } = this.props.jobsheet
+  let jobsheetyearandid = this.props.jobsheet.jobSheetId.split('-')
   return (
     <tr className="danger-item" >
       <td>
-        <p>{customer.customerName}</p>
-        <p>{this.props.jobsheet.jobSheetId}</p>
+        <p><a style={{cursor:'pointer'}} onClick={()=>this.props.history.push(`/customerdetail/${customer._id}`)}> {customer.customerName}</a></p>
+        <p>{jobsheetyearandid[0].substring(jobsheetyearandid[0].length-2,jobsheetyearandid[0])+jobsheetyearandid[1]}</p>
       </td>
       <td>
         <p>{customer.customerNumber}</p>
@@ -100,8 +103,9 @@ render() {
         </div>
       </td>
       <td>
-        <p>{moment(this.props.jobsheet.createdAt).format('DD-MM-YYYY')+' / '+moment(this.props.jobsheet.createdAt).format('hh-mm')}</p>
-        <p>Paid</p>
+        <p style={{margin:0,padding:0}}>{moment(this.props.jobsheet.createdAt).fromNow()}</p>
+        <p style={{margin:0,padding:0}}>{moment(this.props.jobsheet.createdAt).format('DD/MM/YYYY')}</p>
+        <p style={{margin:0,padding:0}}>Paid</p>
       </td>
       <td className="status">
         <span className="status-text status-red">{this.state.status}</span>
@@ -217,7 +221,7 @@ Complete(){
 }
 }
 
-export default TrackBox
+export default withRouter(TrackBox)
 
 
 // const styles ={

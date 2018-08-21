@@ -20,6 +20,10 @@ export default withRouter(CustomerTable1)
 
 class ForWeb extends Component {
 
+  state={
+    select:localStorage.getItem('customerMonth') === null ? 0 : localStorage.getItem('customerMonth'),
+  }
+
 
   onChange=(value,id)=>{    
     if (value == 0) {
@@ -33,6 +37,15 @@ class ForWeb extends Component {
       this.deleteCustomer(id)
     }
   }
+  selectOnChange =(select)=>{
+    if (select === '0' ) {
+      this.showSnackBar('Please Select Any Month')
+      return
+    }
+    localStorage.setItem('customerMonth',select)
+    this.setState({select})
+    location.reload()
+  }
   render() {    
     return (
       <div className="container projects">
@@ -41,6 +54,20 @@ class ForWeb extends Component {
             <div className="title">Customer Details</div>
             <div className="count">| 32 customer this month</div>
             <span className="glyphicon glyphicon-download-alt" />
+            <div style={{display:'flex',flex:1,justifyContent:'flex-end'}} >
+              <div className=" mdl-shadow--2dp" id="customerselect" style={{backgroundColor:'white',color:'black'}} >
+                <select className="mdl-textfield__input"  value={this.state.select} onChange={(e)=>this.selectOnChange(e.target.value)}>
+                  <option value={0}>Select Month </option>
+                  {
+                    data.map((d,i)=>{
+                      return(
+                        <option value={d.text} key={i}>{d.text}</option>
+                      )
+                    })
+                  }
+                </select>
+              </div>
+            </div>
           </header>
           <table className="projects-table">
             <thead>
@@ -58,7 +85,7 @@ class ForWeb extends Component {
                   return(
                     <tr className="danger-item" key={i}>
                       <td>
-                        <p style={{color:'white',fontSize:15}}>{customer.customerName}</p>
+                        <p style={{color:'white',fontSize:15}}><a style={{cursor:'pointer'}} onClick={()=>this.props.history.push(`/customerdetail/${customer._id}`)}>{customer.customerName}</a></p>
                         <p>{moment(customer.createdAt).format('DD-MM-YYYY')+' / '+moment(customer.createdAt).format('hh-mm')}</p>
                       </td>
                       <td>
@@ -110,6 +137,21 @@ class ForWeb extends Component {
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
   }
 }
+
+const data = [
+  {text:'January', value:1},
+  {text:'February' ,value:2},
+  {text:'March' ,value:3},
+  {text:'April' ,value:4},
+  {text:'May' ,value:5},
+  {text:'Jun' ,value:6},
+  {text:'July' ,value:7},
+  {text:'August' ,value:8},
+  {text:'September' ,value:9},
+  {text:'October' ,value:10},
+  {text:'November' ,value:11},
+  {text:'December' ,value:12},
+]
 // class ForWeb extends Component {
 //   render() {
 //     return (

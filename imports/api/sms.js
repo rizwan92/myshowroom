@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import moment from 'moment';
+
 export  const SMSApi = new Mongo.Collection('sms');
 
 Meteor.methods({
@@ -22,7 +24,9 @@ if (Meteor.isServer) {
   Meteor.publish('allsms', function() {    
     return SMSApi.find({});
   });
-  Meteor.publish('smsByShowroomId', function(showroomId) {          
-    return SMSApi.find({showroomId});
+  Meteor.publish('smsByShowroomId', function(showroomId) {
+    var startOfMonth = moment ().startOf ('month').toDate ();
+    var endOfMonth = moment ().endOf ('month').toDate ();
+    return SMSApi.find({showroomId,createdAt: {$gte: startOfMonth,$lte:endOfMonth}});
   });
 }

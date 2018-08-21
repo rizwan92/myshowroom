@@ -135,17 +135,13 @@ export class Customer extends Component {
         </div> */}
 
       
-        {this.state.toggle
-          ? <div>
-            {customers.length === 0
-              ? <h6>No records Available</h6>
-              : <CustomerTable customers={customers} />}
-          </div>
-          : <div>
-            {customers.length === 0
-              ? <h6>No records Available</h6>
-              : <CustomerTable1 customers={customers} />}
-          </div>}
+        {
+          this.state.toggle ?
+            <CustomerTable customers={customers} />
+            : 
+            <CustomerTable1 customers={customers} />
+        }
+        
         <button
           style={{position: 'fixed', bottom: 20, right: 20, zIndex: 10}}
           className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
@@ -197,27 +193,24 @@ export class Customer extends Component {
               </div>
             </Modal>
             : null}
+        <button className="useraddbutton mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+          onClick={()=>this.props.history.push('/customerform')}>
+          <i className="material-icons">add</i>
+        </button>
       </div>
     );
   }
 }
 
 export default withTracker (props => {
-  const handle = Meteor.subscribe (
-    'thisMonthCustomer',
-    props.credentials.showroomId
-  );
-  var startOfMonth = moment ().startOf ('month').toDate ();
-  var endOfMonth = moment ().endOf ('month').toDate ();
+  let numberOfDays = localStorage.getItem('customerMonth') === null ? 1 : localStorage.getItem('customerMonth')  
+  const handle = Meteor.subscribe ('thisMonthCustomer',props.credentials.showroomId,numberOfDays);
   var startOfWeek = moment ().startOf ('week').toDate ();
   var endOfWeek = moment ().endOf ('week').toDate ();
   var d = new Date ();
   d.setHours (0, 0, 0, 0);
   return {
-    customers: CustomerApi.find (
-      {createdAt: {$gte: new Date (startOfMonth), $lte: new Date (endOfMonth)}},
-      {sort: {createdAt: -1}}
-    ).fetch (),
+    customers: CustomerApi.find ().fetch (),
     customersOfWeek: CustomerApi.find (
       {createdAt: {$gte: new Date (startOfWeek), $lte: new Date (endOfWeek)}},
       {sort: {createdAt: -1}}

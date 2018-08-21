@@ -84,7 +84,7 @@ export class Track extends Component {
 
                   {this.props.jobsheets.map((jobsheet,i)=>{
                     return(
-                      <TrackBox1 key={i} jobsheet={jobsheet} showroomId={this.props.credentials.showroomId}/>
+                      <TrackBox1 key={i} credentials={this.props.credentials} jobsheet={jobsheet} showroomId={this.props.credentials.showroomId}/>
                     )
                   })}
                 </tbody>
@@ -130,7 +130,7 @@ export class Track extends Component {
 }
 
 export default withTracker((props) => {
-  let numberOfDays = localStorage.getItem('numberOfDays') === null ? 45 : localStorage.getItem('numberOfDays')  
+  let numberOfDays = localStorage.getItem('numberOfDays') === null ? 1 : localStorage.getItem('numberOfDays')  
   const handle = Meteor.subscribe('thisMonthTrackJobSheet',props.credentials.showroomId,numberOfDays)
   return {
     jobsheets:JobSheetApi.find({}).fetch(),

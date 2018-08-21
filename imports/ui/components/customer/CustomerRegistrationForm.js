@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import {Meteor} from 'meteor/meteor'
+import moment from 'moment'
 /*global  Bert:true*/
 
 
@@ -20,11 +21,14 @@ export class CustomerRegistrationForm extends Component {
     vehicleEngineNumber:'',
     vehicleChassisNumber:'',
     vehicleSoldDealer:'',
+    vehicleDeleiveryDate:'',
   }
   /*jshint esversion: 6 */
   /*global  componentHandler:true */
 
-  onChange =(e)=> this.setState({[e.target.id]:e.target.value})
+  onChange =(e)=> {
+    this.setState({[e.target.id]:e.target.value})
+  }
   componentDidUpdate() {
     componentHandler.upgradeDom();
   }
@@ -32,7 +36,8 @@ export class CustomerRegistrationForm extends Component {
     this.props.changeTitle('Create Customer')    
     componentHandler.upgradeDom();
     if (this.props.match.params.id) {
-      Meteor.call('customer.singleitem',this.props.match.params.id,(err,res)=>{
+      this.props.changeTitle('Edit Customer')
+      Meteor.call('customer.get',this.props.match.params.id,(err,res)=>{
         if (err) {
           Bert.alert(err, 'danger', 'growl-top-right');
           return
@@ -59,21 +64,20 @@ export class CustomerRegistrationForm extends Component {
           vehicleEngineNumber:res.vehicleEngineNumber,
           vehicleChassisNumber:res.vehicleChassisNumber,
           vehicleSoldDealer:res.vehicleSoldDealer,
+        },()=>{
+          document.getElementById('vehicleDeleiveryDate').defaultValue = moment(res.createdAt).format('YYYY-MM-DD').toString();
         })
       })
     }    
   }
   
   
-  render() {    
+  render() {  
     const id = this.props.match.params.id
     return (
       <div style={{display:'flex',justifyContent:'center'}}>
         <div className="mdl-shadow--2dp" style={{backgroundColor:'white',width:'80%',marginTop:20}} >
-          { id  === undefined ?   null 
-            :
-            <i className="material-icons" style={{fontSize:50,color:'#000'}} onClick={()=> this.props.history.goBack()}>keyboard_backspace</i> 
-          }
+          <i className="material-icons" style={{fontSize:50,color:'#000'}} onClick={()=> this.props.history.goBack()}>keyboard_backspace</i> 
           <center>
             { id  === undefined ?  null : <h6>Edit Customer</h6>}
             <form id="customerRegistrationForm" className="myform" onSubmit={id === undefined ? (e)=>this.onSubmit(e) : (e)=>this.onUpdate(e)}
@@ -153,6 +157,15 @@ export class CustomerRegistrationForm extends Component {
                 </div>
               </div>
 
+              <div className='mysubform'> 
+              Vehicle Deleivery Date
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input className="mdl-textfield__input myinput" type="date" id="vehicleDeleiveryDate" 
+                    onChange={(e)=> this.onChange(e)} />
+                  <label className="mdl-textfield__label" htmlFor="vehicleDeleiveryDate"></label>
+                </div>
+              </div>
+
               <button type="submit"
                 style={{marginTop:20,width:300}}
                 className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
@@ -160,6 +173,7 @@ export class CustomerRegistrationForm extends Component {
               </button>
             </form>
           </center>
+        
         </div>
       </div>
     )
@@ -177,10 +191,11 @@ export class CustomerRegistrationForm extends Component {
     let vehicleEngineNumber = this.state.vehicleEngineNumber.trim()
     let vehicleChassisNumber = this.state.vehicleChassisNumber.trim()
     let vehicleSoldDealer = this.state.vehicleSoldDealer.trim()
+    let vehicleDeleiveryDate = this.state.vehicleDeleiveryDate
 
     if (customerName===''){ this.showSnackBar('Enter Customer Name'); return false}
     if (customerNumber===''){ this.showSnackBar('Enter Customer Mobile Number'); return false}
-    if (customerEmail===''){ this.showSnackBar('Enter Customer Email'); return false}
+    // if (customerEmail===''){ this.showSnackBar('Enter Customer Email'); return false}
     if (customerAddress===''){ this.showSnackBar('Enter Customer Address'); return false}
     if (vehicleModel===''){ this.showSnackBar('Enter Model Number'); return false}
     if (vehicleColor===''){ this.showSnackBar('Enter Color'); return false}
@@ -188,22 +203,23 @@ export class CustomerRegistrationForm extends Component {
     if (vehicleEngineNumber===''){ this.showSnackBar('Enter Engine Number'); return false}
     if (vehicleChassisNumber===''){ this.showSnackBar('Enter Chessis Number'); return false}
     if (vehicleSoldDealer===''){ this.showSnackBar('Enter Dealer Name'); return false}
+    if (vehicleDeleiveryDate===''){ this.showSnackBar('Enter Vehicle Deleivery Date'); return false}
 
-
+    vehicleDeleiveryDate = new Date(vehicleDeleiveryDate)
     let customer ={
       showroomId:this.props.credentials.showroomId,
       customerName,customerNumber,customerEmail,
       customerAddress,hpd,
       vehicleModel,vehicleColor,vehicleKeyNumber,
       vehicleEngineNumber,vehicleChassisNumber,
-      vehicleSoldDealer
+      vehicleSoldDealer,vehicleDeleiveryDate
     }
 
     Meteor.call('customer.insert',customer,(err,res)=>{
       if (err) {
         Bert.alert(err, 'danger', 'growl-top-right');
       }
-      Bert.alert('ग्राहक जोड़ा गया ', 'success', 'growl-top-right');
+      Bert.alert('Customer Added', 'success', 'growl-top-right');
       this.props.history.push('/customer')
     })
     
@@ -224,25 +240,28 @@ export class CustomerRegistrationForm extends Component {
     let vehicleEngineNumber = this.state.vehicleEngineNumber.trim()
     let vehicleChassisNumber = this.state.vehicleChassisNumber.trim()
     let vehicleSoldDealer = this.state.vehicleSoldDealer.trim()
+    let vehicleDeleiveryDate = this.state.vehicleDeleiveryDate
 
-    if (customerName===''){ this.showSnackBar('ग्राहक का नाम लिखे '); return false}
-    if (customerNumber===''){ this.showSnackBar('ग्राहक का मोबाइल नम्बर लिखे '); return false}
-    if (customerEmail===''){ this.showSnackBar('ग्राहक का ईमेल लिखे'); return false}
-    if (customerAddress===''){ this.showSnackBar('ग्राहक का पता लिखे'); return false}
-    if (vehicleModel===''){ this.showSnackBar('मोडल नंबर लिखे'); return false}
-    if (vehicleColor===''){ this.showSnackBar('रंग लिखे'); return false}
-    if (vehicleKeyNumber===''){ this.showSnackBar('चाबी नंबर लिखे'); return false}
-    if (vehicleEngineNumber===''){ this.showSnackBar('इंजन नंबर लिखे'); return false}
-    if (vehicleChassisNumber===''){ this.showSnackBar('चेसीस  नंबर लिखे'); return false}
-    if (vehicleSoldDealer===''){ this.showSnackBar('सोल्ड डीलर लिखे'); return false}
-
+    
+    if (customerName===''){ this.showSnackBar('Enter Customer Name'); return false}
+    if (customerNumber===''){ this.showSnackBar('Enter Customer Mobile Number'); return false}
+    // if (customerEmail===''){ this.showSnackBar('Enter Customers Email'); return false}
+    if (customerAddress===''){ this.showSnackBar('Enter Customer Details'); return false}
+    if (vehicleModel===''){ this.showSnackBar('Enter Model name and Number'); return false}
+    if (vehicleColor===''){ this.showSnackBar('Enter Color'); return false}
+    if (vehicleKeyNumber===''){ this.showSnackBar('Enter Key Number'); return false}
+    if (vehicleEngineNumber===''){ this.showSnackBar('Enter Engine Number'); return false}
+    if (vehicleChassisNumber===''){ this.showSnackBar('Enter Chessis Number'); return false}
+    if (vehicleSoldDealer===''){ this.showSnackBar('Enter Dealer '); return false}
+    if (vehicleDeleiveryDate===''){ this.showSnackBar('Enter Vehicle Deleivery Date'); return false}
+    vehicleDeleiveryDate = new Date(vehicleDeleiveryDate)
     let customer ={
       showroomId:this.props.credentials.showroomId,
       customerName,customerNumber,customerEmail,
       customerAddress,hpd,
       vehicleModel,vehicleColor,vehicleKeyNumber,
       vehicleEngineNumber,vehicleChassisNumber,
-      vehicleSoldDealer
+      vehicleSoldDealer,vehicleDeleiveryDate
     }
 
     let customerId  = this.props.match.params.id
@@ -252,7 +271,7 @@ export class CustomerRegistrationForm extends Component {
         Bert.alert(err, 'danger', 'growl-top-right');
         return
       }
-      Bert.alert('ग्राहक अपडेट किया गया ', 'success', 'growl-top-right');
+      Bert.alert('Update Successfully', 'success', 'growl-top-right');
       // this.props.history.push('/customer')
     })
     

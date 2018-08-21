@@ -32,10 +32,26 @@ Meteor.methods ({
           jobSheetId: jobSheet.jobSheetId,
           registrationNumber: jobSheet.registrationNumber,
           hasRun: jobSheet.hasRun,
+          mad: jobSheet.mad,
+          light:jobSheet.light,
+          isbattery:jobSheet.isbattery,
+          toolkit:jobSheet.toolkit,
+          rml:jobSheet.rml,
+          rmr:jobSheet.rmr,
+          dent:jobSheet.rmr,
+          scratch:jobSheet.scratch,
+          cc:jobSheet.cc,
+          accessories:jobSheet.accessories,
+          fuellevel:jobSheet.fuellevel,
+          anya:jobSheet.anya,
+          serviceNumber:jobSheet.serviceNumber,
+          oil:jobSheet.oil,
+          typeofoil:jobSheet.typeofoil,
           type: jobSheet.type,
           status: 1,
           createdAt: new Date (),
         });
+        
       } else {
         throw new Meteor.Error (500, 'this jobsheet ID already exist');
       }
@@ -85,7 +101,7 @@ if (Meteor.isServer) {
   Meteor.publish ('thisMonthJobSheet', function userPublication (showroomId) {
     var startOfMonth = moment ().startOf ('month').toDate ();
     const pipeline = [
-      {$match: {showroomId, createdAt: {$gte: startOfMonth}}},
+      {$match: {showroomId, createdAt: {$gte: startOfMonth},jobSheetId:{$ne:'dummy'}}},
       {$sort: {createdAt: -1}},
       {
         $lookup: {
@@ -176,6 +192,7 @@ function sendSMS (showroomId,smsData) {
       sender: 'SHOWRM',
       route: '4',
       country: '91',
+      unicode:1,
       sms: [
         {
           message: smsData.message,
@@ -195,6 +212,8 @@ function sendSMS (showroomId,smsData) {
         },
       },
       (err, result) => { 
+        console.log(result);
+        
         if (err) {
           resolve(false)
         }

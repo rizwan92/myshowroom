@@ -2,21 +2,23 @@ import React, { Component } from 'react'
 import moment from 'moment';
 class PrintJobSheet extends Component {
 
-  render() {    
+  render() {
+    let { showroomAddress, showroomCity,showroomContact,showroomEmail, showroomGST,showroomName,showroomState,showroomTitle} = this.props.credentials 
     let { customerName,customerNumber,customerEmail,customerAddress,hpd,
       vehicleModel,vehicleColor,vehicleKeyNumber,vehicleEngineNumber,vehicleChassisNumber,
       vehicleSoldDealer} = this.props.customerDetail   
     let { oilLabel,airFilter,taped,spark,corborator,clutch,breake,jobSheetId,
-      diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt,type,registrationNumber,hasRun} = this.props.jobsheetDetail
+      diveChain,battery,fuel,electrical,cabel,nutBolt,createdAt,type,registrationNumber,hasRun,mad,light,isbattery,toolkit,rml,rmr,dent,scratch,cc,accessories,fuellevel,anya,serviceNumber,oil,typeofoil} = this.props.jobsheetDetail
+    let jobsheetyearandid = jobSheetId.split('-')
     return (
       <div id="divContents"style={{ width:'21cm',height:'29.7cm'}}>
         <center>
-          <div style={{margin:0,fontSize:22,font:'Roboto'}}>Star Auto</div>
-          <div style={bigText}>बस स्टैंड -घटुला तहसील  नगरी जिला-धमतरी</div>
+          <div style={{margin:0,fontSize:22,font:'Roboto'}}>{showroomName}</div>
+          <div style={bigText}>{showroomAddress}</div>
           <div style={bigText}>{type === 'free' ? 'फ्री' :'पेड'} सर्विस जॉब कार्ड</div>
           <div style={{display:'flex',justifyContent:'space-around'}}>
-            <div style={mediumText}>जॉब कार्ड नंबर :-{ '-' +jobSheetId}</div>
-            <div style={{...mediumText,display:'flex'}}>{type === 'free' ? 'फ्री' :'पेड'} सर्विस :-<div>☐ ☐ ☐ ☐ ☐ ☐</div> </div>
+            <div style={mediumText}>जॉब कार्ड नंबर :-{ jobsheetyearandid[0].substring(jobsheetyearandid[0].length-2,jobsheetyearandid[0])+jobsheetyearandid[1]}</div>
+            <div style={{...mediumText,display:'flex'}}>{type === 'free' ? 'फ्री' :'पेड'} सर्विस नम्बर:-<div>{serviceNumber}</div> </div>
             <div style={mediumText}>दिनांक :-{moment(createdAt).format('DD-MM-YYYY')}</div>
           </div>
 
@@ -125,23 +127,25 @@ class PrintJobSheet extends Component {
 
 
             <div style={{borderTop:'1px solid black'}}/>
-            <div  style={{...bigText,textAlign:'center',paddingLeft:5}}>तेल बदलाव :- हां /नहीं     तेल की किस्म 4 टी  प्लस /अन्य सन्तुस्ट ब्रांड 10 w30/20w40 </div>
+            <div  style={{...bigText,textAlign:'center',paddingLeft:5}}>तेल बदलाव :-{oil ? 'हां' : 'ना'}  {oil ? '|' : null}  {oil ?  `तेल की किस्म ${typeofoil}` : null} </div>
             <div style={{borderTop:'1px solid black'}}/>
 
             <div style={{...grahakDetail,position:'relative'}}>
               <div style={{...grahakDetailSub,paddingLeft:5}} >
                 <div  style={{...bigText,textAlign:'center'}}> मोटर साइकिल पावती रिपोर्ट </div>
                 <div  style={{...smallText,textAlign:'center'}}>(सर्विस सुपरवाइज़र द्वारा भेजा जायेगा)</div>
-                <div style={mediumText}>मद :- </div>
-                <div style={mediumText}>लाइटे :- </div>
-                <div style={mediumText}>ईंधन स्तर :- </div>
-                <div style={mediumText}>बैटरी हां / ना :- </div>
-                <div style={mediumText}>टूल कीट हां / ना :- </div>
-                <div style={mediumText}>रियर व्यू मिरर (L/R) :- </div>
-                <div style={mediumText}>डेंट (D) निशान (S):- </div>
-                <div style={mediumText}>चोक कैंप : हां /ना :- </div>
-                <div style={mediumText}>एसेसरीज़  :- </div>
-                <div style={mediumText}>अन्य ( यदि कोई हो ) :- </div> 
+                <div style={mediumText}>मद :- {mad ? 'हां' : 'ना'}</div>
+                <div style={mediumText}>लाइटे :- {light ? 'हां' : 'ना'} </div>
+                <div style={mediumText}>ईंधन स्तर :- {fuellevel}/3</div>
+                <div style={mediumText}>बैटरी हां / ना :- {isbattery ? 'हां' : 'ना'} </div>
+                <div style={mediumText}>टूल कीट हां / ना :- {toolkit ? 'हां' : 'ना'} </div>
+                <div style={mediumText}>रियर व्यू मिरर (L) :- {rml ? 'हां' : 'ना'}</div>
+                <div style={mediumText}>रियर व्यू मिरर (R) :- {rmr ? 'हां' : 'ना'}</div>
+                <div style={mediumText}>डेंट (D) :- {dent ? 'हां' : 'ना'} </div>
+                <div style={mediumText}>निशान (S):- {scratch ? 'हां' : 'ना'} </div>
+                <div style={mediumText}>चोक कैंप : हां /ना :- {cc ? 'हां' : 'ना'}</div>
+                <div style={mediumText}>एसेसरीज़  :- {accessories ? 'हां' : 'ना'}</div>
+                <div style={mediumText}>अन्य ( यदि कोई हो ) :- {anya} </div> 
                 <div style={{display:'flex',justifyContent:'flex-start'}}>  
                   <div style={{...mediumText,textAlign:'center',margin:20}}>टीम सुपरवाइज़र का नाम एवं हस्ताक्षर </div>
                   <div style={{...mediumText,textAlign:'center',margin:20}}> ग्राहक के हस्ताक्षर  </div>
@@ -156,7 +160,7 @@ class PrintJobSheet extends Component {
                 <div style={smallText}>मैकेनिक :- _________</div>
                 <div style={smallText}>डिलेवरी तिथि :- _________</div>
                 <div style={smallText}>समय  :- _________</div>
-                <div style={smallText}>अनुमान लागत (एस्टिमेटेड कॉस्ट )  :- _________</div>
+                <div style={smallText}>अनुमान लागत (एस्टिमेटेड कॉस्ट):- _________</div>
                 <div  style={{...smallText,marginTop:10}}>मरम्मत ,जांच व टायल के दौरान मोटरसाईकल की क्षति के लिए जिम्मेदार नहीं होगा </div>
 
               </div>
@@ -172,8 +176,8 @@ class PrintJobSheet extends Component {
                   <div style={{...mediumText,textAlign:'center'}}>डिलीवरी दिनांक :- _________</div>
                   <div style={{...mediumText,textAlign:'center'}}> समय :- __________ </div>
                 </div>
+                <div style={{...mediumText,textAlign:'center'}}>मैंने विधिवत सर्विस /मरम्मत की हुई मोटरसाइक्ल प्राप्त की है और मै इससे पूर्णता संतुस्ट हु और बदले में पुर्ज़े यदि कोई हो मुझे लौटा दिए गए है </div>
                 <div style={{display:'flex',justifyContent:'space-between',flexWrap:'wrap'}}>  
-                  <div style={{...mediumText,textAlign:'center'}}>मैंने विधिवत सर्विस /मरम्मत की हुई मोटरसाइक्ल प्राप्त की है और मै इससे पूर्णता संतुस्ट हु और बदले में पुर्ज़े यदि कोई हो मुझे लौटा दिए गए है </div>
                   <div style={{...mediumText,textAlign:'center'}}>टीम सुपरवाइज़र के हस्ताक्षर </div>
                   <div style={{...mediumText,textAlign:'center'}}> ग्राहक के हस्ताक्षर</div>
                 </div>
@@ -197,7 +201,14 @@ class PrintJobSheet extends Component {
                 </div>
                 <div style={{display:'flex',justifyContent:'space-between',flexWrap:'wrap'}}>  
                   <div style={{...mediumText,textAlign:'center'}}>कृपया स्पस्टीकरण के लिए .............................. से संपर्क कीजिये </div>
-                  <div style={{...mediumText,textAlign:'center'}}>डीलर-स्टार ऑटो घटुला जिला-धमतरी छत्तीसगढ़ मोबाइल नम्बर :- 812057-77786, 9009033994</div>
+                
+                </div>
+                <div style={{display:'flex',flexDirection:'column',alignItems:'flex-end',flexWrap:'wrap'}}>  
+                  <div style={{fontSize:10,margin:0,padding:0}}>डीलर-{`${showroomName}`}</div>
+                  <div style={{fontSize:10,margin:0,padding:0}}>जिला -{`${showroomCity}, राज्य :- ${showroomState}`}</div>
+                  <div style={{fontSize:10,margin:0,padding:0}}>ईमेल -{`${showroomEmail}, जीएसटी :- ${showroomGST}`}</div>
+                  <div style={{fontSize:10,margin:0,padding:0}}>पता-{`${showroomAddress}`}</div>
+                  <div style={{fontSize:10,margin:0,padding:0}}>मोबाइल नम्बर :- {showroomContact.toString()}</div>
                 </div>
               </div>
             </div>

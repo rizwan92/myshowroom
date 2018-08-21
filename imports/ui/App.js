@@ -11,7 +11,9 @@ import  ViewJobSheet  from './components/jobsheet/ViewJobSheet';
 import Login from './components/Login/Login';
 import Authentication from './components/Login/Authentication';
 import  Registration  from './components/Login/Registration';
+import  RegistrationShop  from './components/Login/RegistrationShop';
 import { spring,AnimatedSwitch } from 'react-router-transition';
+import  CustomerDetail  from './components/customer/CustomerDetail';
 
 
 const MyRoute = ()=>{
@@ -27,6 +29,8 @@ const MyRoute = ()=>{
       <Route exact path='/viewjobsheet/:jobSheetId' component={App} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/createshowroom' component={Registration} />
+      <Route exact path='/createshop' component={RegistrationShop} />
+      <Route exact path='/customerdetail/:customerId' component={App} />
       <Route component={NoMatch} />
     </Switch>
   )
@@ -37,7 +41,7 @@ export class App extends Component {
     return (
       <Authentication>
         {
-          (credentials)=>{            
+          (credentials)=>{
             return(
               <DashBoardLayout credentials={credentials}>
                 {(search,changeTitle)=>{
@@ -58,6 +62,7 @@ export class App extends Component {
                         <Route exact path='/createjobsheet' render={(props)=><CreateJobSheet {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
                         <Route exact path='/newjobsheet/:jobSheetId/:customerId/:type' render={(props)=><JobSheetForm {...props} search={search} changeTitle={changeTitle} credentials={credentials} />}/>
                         <Route exact path='/viewjobsheet/:jobSheetId' render={(props)=><ViewJobSheet {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
+                        <Route exact path='/customerdetail/:customerId' render={(props)=><CustomerDetail {...props} search={search} changeTitle={changeTitle} credentials={credentials} />} />
                       </AnimatedSwitch>
                     </div>
                   )}}

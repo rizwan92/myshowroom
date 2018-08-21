@@ -57,7 +57,8 @@ export class HomePage extends Component {
               </span>
 
               <div className="mdl-layout-spacer" />
-              <h4>This Month Total : {this.props.loading ? parseInt(this.props.sms) * 3 : '' } ₹</h4>
+              <h4>This Month Total SMS : {this.props.loading ? parseInt(this.props.sms): '' } </h4>
+              {/* ₹ */}
               <div className="mdl-layout-spacer" />
               <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right">
@@ -86,17 +87,18 @@ export class HomePage extends Component {
                 <i className="mdl-color-text--black material-icons" style={{fontSize:23}} role="presentation">adjust</i>
                  Track
               </a>
-              <a className="mdl-navigation__link" id="addcustomer" onClick={()=>this.navigate('/customerform','Create Customer','addcustomer')} style={{fontSize:13}} >
+              {/* <a className="mdl-navigation__link" id="addcustomer" onClick={()=>this.navigate('/customerform','Create Customer','addcustomer')} style={{fontSize:13}} >
                 <i className="mdl-color-text--black material-icons" style={{fontSize:23}} role="presentation">person_add</i>
                 Add Customers
-              </a>
+              </a> */}
               <a className="mdl-navigation__link" id="customerdetail"  onClick={()=>this.navigate('/customer','Customer Details','customerdetail')} style={{fontSize:13}} >
                 <i className="mdl-color-text--black material-icons" style={{fontSize:23}} role="presentation">person</i>
                 Customer Details
               </a>
               <a className="mdl-navigation__link" id="addjobsheet" onClick={()=>this.navigate('/createjobsheet','Create Jobsheet','addjobsheet')}  style={{fontSize:13}}>
-                <i className="mdl-color-text--black material-icons" style={{fontSize:23}} role="presentation">add_to_photos</i>
-               Add Jobsheets
+                <i className="mdl-color-text--black material-icons" style={{fontSize:23}} role="presentation">search</i>
+                {/* <i className="mdl-color-text--black material-icons" style={{fontSize:23}} role="presentation">add_to_photos</i> */}
+                Find Customers
               </a>
               <a className="mdl-navigation__link" id="jobsheetdetail"  onClick={()=>this.navigate('/jobsheet','Jobsheet Details','jobsheetdetail')}  style={{fontSize:13}}>
                 <i className="mdl-color-text--black material-icons" style={{fontSize:23}} role="presentation">description</i>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Meteor } from 'meteor/meteor'
+import moment from 'moment'
+
 export class JobSheetTable extends Component {
   render() {
     return (
@@ -11,23 +13,27 @@ export class JobSheetTable extends Component {
             <th>Customer Name</th>
             <th>Mob Number</th>
             <th>Email</th>
-            <th>Vehicle Model</th>
-            <th>Vehicle Color</th>
-            <th>View</th>
+            <th>Vehicle Details</th>
+            <th>Jobsheet Detail</th>
+            {/* <th>View</th> */}
           </tr>
         </thead>
         <tbody>
           {
             this.props.jobsheets.map((jobsheet,i)=>{
+              if (jobsheet.jobSheetId === 'dummy') {
+                return false
+              }
+              let jobsheetyearandid = jobsheet.jobSheetId.split('-')
               return(
                 <tr key={i}>
-                  <td>{jobsheet.jobSheetId}</td>
-                  <td >{jobsheet.customer.customerName}</td>
+                  <td>{jobsheetyearandid[0].substring(jobsheetyearandid[0].length-2,jobsheetyearandid[0])+jobsheetyearandid[1]}<p>{jobsheet.type}</p></td>
+                  <td><a style={{color:'blue',cursor:'pointer'}}  onClick={()=>this.viewJobSheet(jobsheet)}>{jobsheet.customer.customerName}</a></td>
                   <td>{jobsheet.customer.customerNumber}</td>
                   <td>{jobsheet.customer.customerEmail}</td>
-                  <td>{jobsheet.customer.vehicleModel}</td>
-                  <td>{jobsheet.customer.vehicleColor}</td>
-                  <td><i className="material-icons" style={{color:'blue'}}  onClick={()=>this.viewJobSheet(jobsheet)}>remove_red_eye</i></td>
+                  <td>{jobsheet.customer.vehicleModel}<p>{jobsheet.customer.vehicleColor}</p></td>
+                  <td>{moment(jobsheet.createdAt).fromNow()}<p>{moment(jobsheet.createdAt).format('DD/MM/YYYY')}</p></td>
+                  {/* <td><i className="material-icons" style={{color:'blue'}}  onClick={()=>this.viewJobSheet(jobsheet)}>remove_red_eye</i></td> */}
                   {this.props.delete ? <td><i className="material-icons" style={{color:'red'}} onClick={()=> this.deleteJobsheet(jobsheet._id)}>delete</i></td>: null}
                 </tr>
               ) 

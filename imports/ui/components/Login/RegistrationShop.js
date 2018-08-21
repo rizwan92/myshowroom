@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import {Meteor} from 'meteor/meteor'
 /*global  componentHandler:true */
 /*global  Bert:true*/
-Meteor.subscribe('allshowroom')
+Meteor.subscribe('allshop')
 export class Registration extends Component {
     state={
       showroomTitle:'',
@@ -31,32 +31,32 @@ export class Registration extends Component {
     }
     onRegistere = (e)=>{
       e.preventDefault()
-      const showroomTitle = this.state.showroomTitle.trim()
-      if (showroomTitle === '') {this.showSnackBar('Enter Title Please'); return;}
-      const showroomName = this.state.showroomName.trim()
-      if (showroomName === '') {this.showSnackBar('Enter showroomName Please'); return;}
-      const showroomEmail = this.state.showroomEmail.trim()
-      if (showroomEmail === '') {this.showSnackBar('Enter showroomEmail Please'); return;}
-      const showroomPassword = this.state.showroomPassword.trim()
-      if (showroomPassword === '') {this.showSnackBar('Enter showroomPassword Please'); return;}
-      const showroomType = this.state.showroomType.trim()
-      if (showroomType === '') {this.showSnackBar('Enter showroomType Please'); return;}
-      const showroomGST = this.state.showroomGST.trim()
-      const showroomState = this.state.showroomState.trim()
-      if (showroomState === '') {this.showSnackBar('Enter showroomState Please'); return;}
-      const showroomCity = this.state.showroomCity.trim()
-      if (showroomCity === '') {this.showSnackBar('Enter showroomCity Please'); return;}
-      const showroomAddress = this.state.showroomAddress.trim()
-      if (showroomAddress === '') {this.showSnackBar('Enter showroomAddress Please'); return;}
+      const shopTitle = this.state.showroomTitle.trim()
+      if (shopTitle === '') {this.showSnackBar('Enter Title Please'); return;}
+      const shopName = this.state.showroomName.trim()
+      if (shopName === '') {this.showSnackBar('Enter showroomName Please'); return;}
+      const shopEmail = this.state.showroomEmail.trim()
+      if (shopEmail === '') {this.showSnackBar('Enter showroomEmail Please'); return;}
+      const shopPassword = this.state.showroomPassword.trim()
+      if (shopPassword === '') {this.showSnackBar('Enter showroomPassword Please'); return;}
+      const shopType = this.state.showroomType.trim()
+      if (shopType === '') {this.showSnackBar('Enter showroomType Please'); return;}
+      const shopGST = this.state.showroomGST.trim()
+      const shopState = this.state.showroomState.trim()
+      if (shopState === '') {this.showSnackBar('Enter showroomState Please'); return;}
+      const shopCity = this.state.showroomCity.trim()
+      if (shopCity === '') {this.showSnackBar('Enter showroomCity Please'); return;}
+      const shopAddress = this.state.showroomAddress.trim()
+      if (shopAddress === '') {this.showSnackBar('Enter showroomAddress Please'); return;}
       let newshowroomContact = this.state.showroomContact.trim()
       if (newshowroomContact === '') {this.showSnackBar('Enter newshowroomContact Please'); return;}
-      let showroomContact = newshowroomContact.split(',')
+      let shopContact = newshowroomContact.split(',')
 
 
-      const myshowroom = {
-        showroomTitle,showroomName,showroomEmail,showroomPassword,showroomType,showroomAddress,showroomGST,showroomState,showroomCity,showroomContact
+      const shop = {
+        shopTitle,shopName,shopEmail,shopPassword,shopType,shopAddress,shopGST,shopState,shopCity,shopContact
       }
-      Meteor.call('showroom.insert',myshowroom,(err,res)=>{
+      Meteor.call('shop.insert',shop,(err,res)=>{
         if (err) {
           Bert.alert(err, 'danger', 'growl-top-right');
           return

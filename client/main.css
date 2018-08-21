@@ -1,6 +1,5 @@
 html,
 body {
-  background-color: #1b2431;
   color: #202020;
   font-family: 'Montserrat', 'Helvetica', 'Open Sans', 'Arial';
 }
@@ -156,7 +155,7 @@ body {
 
 .useraddbutton {
   position: fixed !important;
-  top: 80px !important;
+  top: 0 !important;
   right: 40px !important;
 }
 
@@ -192,6 +191,7 @@ body {
   font-size: 16px;
   background-color: #fff;
   border-bottom: 1px solid #d4d4d4;
+  cursor: pointer !important;
 }
 
 .mysubform {

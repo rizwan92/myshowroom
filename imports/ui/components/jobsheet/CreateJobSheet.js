@@ -3,7 +3,7 @@ import Autocomplete from 'react-autocomplete'
 import { Tracker } from 'meteor/tracker'
 import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom'
-import JobSheetTable from './JobSheetTable';
+import CustomerTable from '../customer/CustomerTable';
 /*global  Bert:true componentHandler:true*/
 export class CreateJobSheet extends Component {
     state={
@@ -55,17 +55,16 @@ export class CreateJobSheet extends Component {
     }
     
     render() {
-      let jobsheets = []
-      if (this.state.customer !== null) {
-        let thisCustomer = JSON.parse(JSON.stringify(this.state.customer))
-        delete thisCustomer.jobsheets; 
-        let thisCustomerJobsheets = this.state.customer.jobsheets
-        jobsheets = thisCustomerJobsheets.map((job)=>{
-          job['customer'] = thisCustomer
-          return job
-        })             
-      }
-      
+      // let jobsheets = []
+      // if (this.state.customer !== null) {
+      //   let thisCustomer = JSON.parse(JSON.stringify(this.state.customer))
+      //   delete thisCustomer.jobsheets; 
+      //   let thisCustomerJobsheets = this.state.customer.jobsheets
+      //   jobsheets = thisCustomerJobsheets.map((job)=>{
+      //     job['customer'] = thisCustomer
+      //     return job
+      //   })             
+      // }      
       return (
         <div>
           <i
@@ -76,10 +75,10 @@ export class CreateJobSheet extends Component {
           keyboard_backspace
           </i>
           <div style={{display:'flex',justifyContent:'center'}}>
-            <div style={{display:'flex',justifyContent:'center',width:'70%',padding:20,backgroundColor:'#fff',borderRadius:10}} className="mdl-shadow--2dp">
+            <div style={{display:'flex',justifyContent:'center',padding:20,backgroundColor:'#fff',borderRadius:10}} className="mdl-shadow--2dp">
               <center>
                 <h6 style={{color:'black'}}></h6>
-                <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <div style={{display:'flex',justifyContent:'center',alignItems:'center',position:'relative'}}>
                   <Autocomplete
                     getItemValue={(item) => {
                       return JSON.stringify(item)
@@ -87,9 +86,19 @@ export class CreateJobSheet extends Component {
                     menuStyle={{...styles.menuStyle}}
                     items={this.state.items}
                     renderItem={(item, isHighlighted) =>{
-                      return (<div className="serachtextfield" key={item._id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-                        {item.customerName}
-                      </div>)
+                      return (
+                        <div className=" " key={item._id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+                          <li className="mdl-list__item">
+                            <span className="mdl-list__item-primary-content" style={{cursor:'pointer'}}>
+                              <i className="material-icons mdl-list__item-icon">person</i>
+                              <div style={{display:'flex',flexFlow:'column'}}>
+                                <span>{item.customerName}</span>
+                                <span>{item.customerAddress}</span>
+                              </div>
+                            </span>
+                          </li>
+                        </div>
+                      )
                     }}
                     value={this.state.search}
                     onChange={(e) =>this.autoCompleteOnChange(e.target.value)}
@@ -109,18 +118,16 @@ export class CreateJobSheet extends Component {
                 </div>
                 <br />
                 <br />
-                <br />
 
                 {
                   this.state.customer === null ? null :
-                    <div>
-                      {
-
-                        jobsheets.length === 0 ? <h6>No Record Found</h6> :
-                          <JobSheetTable jobsheets={jobsheets} delete={false}/>
-                      }
-                    </div>
+                    <span className="mdl-chip mdl-chip--contact mdl-chip--deletable" style={{padding:10,}}>
+                      <span className="mdl-chip__text" style={{fontSize:18}}>{this.state.customer.customerName}</span>
+                      <a onClick={()=>this.setState({customer:null})} className="mdl-chip__action" ><i className="material-icons">cancel</i></a>
+                      <a  onClick={()=>this.props.history.push(`/customeredit/${this.state.customer._id}`)} className="mdl-chip__action" ><i className="material-icons">create</i></a>
+                    </span>
                 }
+                <br />
                 <br />
                 <label style={{marginRight:10}} className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1">
                   <input type="radio" id="option-1" onChange={()=>this.setState({type:'free'})}
@@ -174,7 +181,11 @@ const styles={
     background: 'rgba(255, 255, 255, 0.9)',
     padding: '2px 0',
     fontSize: '90%',
+    // width:'30%', 
     position: 'fixed',
+    left: '50%',
+    top: '45%',
+    transform: 'translateX(-50%)',
     overflow: 'auto',
     maxHeight: '50%',
     zIndex:99
