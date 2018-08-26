@@ -6,6 +6,7 @@ import '../imports/api/showroom';
 import '../imports/api/sms';
 import '../imports/api/shop';
 import '../imports/api/shopcustomer';
+import '../imports/api/invoice';
 
 Meteor.startup(() => {
   // code to run on server at startup

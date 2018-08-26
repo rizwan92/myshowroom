@@ -10,32 +10,13 @@ Meteor.methods({
       customerName:shopcustomer.customerName,
       customerNumber:shopcustomer.customerNumber,
       status:1,
-      createdAt: shopcustomer.vehicleDeleiveryDate,
+      createdAt: shopcustomer.createdAt,
     });
     return myshopcustomer
   },
   'shopcustomer.updatedynamic'(userid,field,value) {
     return ShopCustomerApi.update(userid,{ $set: { [field]: value } });
   },
-  'shopcustomer.update'(shopcustomerId,shopcustomer) {
-    ShopCustomerApi.update({_id:shopcustomerId}, {
-      $set: {
-        shopcustomerName:shopcustomer.shopcustomerName,
-        shopcustomerNumber:shopcustomer.shopcustomerNumber,
-        shopcustomerEmail:shopcustomer.shopcustomerEmail,
-        shopcustomerAddress:shopcustomer.shopcustomerAddress,
-        hpd:shopcustomer.hpd,
-        vehicleModel:shopcustomer.vehicleModel,
-        vehicleColor:shopcustomer.vehicleColor,
-        vehicleKeyNumber:shopcustomer.vehicleKeyNumber,
-        vehicleEngineNumber:shopcustomer.vehicleEngineNumber,
-        vehicleChassisNumber:shopcustomer.vehicleChassisNumber,
-        vehicleSoldDealer:shopcustomer.vehicleSoldDealer,
-        createdAt:shopcustomer.vehicleDeleiveryDate,
-      },
-    });
-  },
-
   'shopcustomer.remove'(shopcustomerId) {
     check(shopcustomerId, String);
     ShopCustomerApi.remove(shopcustomerId);
@@ -49,8 +30,8 @@ if (Meteor.isServer) {
   // ShopCustomerApi._ensureIndex({
   //   'shopcustomerName': 'text'
   // });
-  Meteor.publish('allshopcustomer', function userPublication(shopId='') {
-    return ShopCustomerApi.find({shopId},{sort: {createdAt: -1},limit:20})
+  Meteor.publish('allshopcustomer', function userPublication(shopId) {
+    return ShopCustomerApi.find({shopId})
   });
   Meteor.publish('thisMonthShopCustomer', function userPublication(shopId,numberOfDays='august') {
     const monthNumber = moment ().month (numberOfDays).format ('M');
@@ -60,8 +41,8 @@ if (Meteor.isServer) {
     return ShopCustomerApi.find({ shopId,createdAt: {$gte: from, $lte: to}},{sort: {createdAt: -1}})
   });
   Meteor.methods({
-    'shopcustomer.bynames'(showroomId,searchValue) {
-      const shopcustomers = ShopCustomerApi.find({ showroomId,shopcustomerName:new RegExp(searchValue, 'gi')}).fetch()
+    'shopcustomer.bynames'(shopId,searchValue) {
+      const shopcustomers = ShopCustomerApi.find({ shopId,customerName:new RegExp(searchValue, 'gi')}).fetch()
       return shopcustomers
     },
     'shopcustomer.singleitem'(shopcustomerId) {
